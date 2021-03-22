@@ -58,4 +58,6 @@ const Card = ({ card, payBill }) => {
     )
 }
 
+// Col not working for Bill & Statement
+
 export default Card
