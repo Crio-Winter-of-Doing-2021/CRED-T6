@@ -3,6 +3,7 @@ import Bill from './Bill'
 import { Container, Row, Col } from 'reactstrap';
 import { useState,useEffect } from 'react'
 import axios from 'axios';
+import Cards from 'react-credit-cards';
 
 const Card = ({ card, payBill }) => {
     const [transactions,setTransactions] = useState([]);
@@ -26,25 +27,33 @@ const Card = ({ card, payBill }) => {
     },[])    
     return (
         <div className="card">
-            <h3>
+            
             <Container>
                 <Row>
-                    {card.cardNumber} 
+                    <Col>
+                        <Cards 
+                            number={card.cardNumber}
+                            name={card.name}
+                            expiry={card.expiryDate}
+                        />
+                    </Col>
                 </Row>
                 <Row>
-                <Col> {card.expiryDate} </Col>    
-                <Col> {card.name} </Col>    
+                    <Col>
+                        Amount: {card.amount}
+                    </Col>
                 </Row>
                 <Row>
-                    {card.amount}
-                </Row>  
+                    <Col>
+                        <Statements text={"View Statement"} transactions={transactions} amount={card.amount}/> 
+                    </Col>
+                    <Col>
+                        <Bill text={"Pay Bill"} amount={card.amount} payBill={payBill} />
+                    </Col>
+                </Row>
             </Container>
-            </h3>
-            <Statements text={"View Statement"} transactions={transactions} amount={card.amount}/> 
-            <Bill text={"Pay Bill"} amount={card.amount} payBill={payBill} />
-            
-            
         
+
         </div>
     )
 }
