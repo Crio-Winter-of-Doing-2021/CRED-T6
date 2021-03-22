@@ -1,0 +1,77 @@
+.container-fluid {
+    align-items: center;
+    margin: auto;
+  }
+  
+  .outline {
+    max-width: 500px;
+    margin: 0px auto;
+    overflow: auto;
+    min-height: 300px;
+    border: 1px solid steelblue;
+    padding: 30px;
+    border-radius: 5px;
+    background-color:  #ffe6e6;
+  }
+  
+  .header {
+    max-width: 500px;
+    margin: 0px auto;
+    overflow: auto;
+    border: 1px solid steelblue;
+    padding: 20px 30px 20px;
+    border-radius: 5px;
+    background-color:  #ffcccc;
+  }
+  
+  .welcome {
+    padding-left: 10px;
+    font-weight: bold;
+  }
+  
+  .btn {
+    display: inline-block;
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 10px 10px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 15px;
+    font-family: inherit;
+    width: 180px;
+  }
+  
+  .btn:focus {
+    outline: none;
+  }
+  
+  .btn:active {
+    transform: scale(0.98);
+  }
+  
+  .btn-block {
+    display: block;
+    width: 100%;
+  }
+  
+  .btn h3{
+    margin: 0px;
+  }
+  
+  
+  .card {
+    background: #f4f4f4;
+    margin: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  .card h3 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
