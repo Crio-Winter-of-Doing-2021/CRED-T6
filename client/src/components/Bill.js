@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Form, FormGroup, Label, Input, FormText } from 'reactstrap'
@@ -9,9 +10,35 @@ const Bill = (props) => {
 
   const toggle = () => setModal(!modal);
 
-  const onSubmit = () => {
-      toggle()
-      props.payBill({amount})
+  const onSubmit = async () => {
+      if(amount>props.amount)
+      {
+        alert('Enter amount is more than net amount');
+      }
+      const timeElapsed = Date.now();
+      const today = new Date(timeElapsed);
+      const payment = {card:props.card, amount:amount*(-1),vendor:"-",type:"Bill payment",category:"Debit",date:today.toDateString()}
+      console.log(payment);
+    try{
+        const config = {
+            headers:{
+                'Content-Type': 'application/json'
+            }
+        };
+
+        const body = JSON.stringify(payment);
+
+        const res = await axios.post('/transactions/pay',body, config);
+        //localStorage.setItem('token', res.data.token);
+        console.log(res.data);
+        //setAuthenticated(true);
+        toggle()
+        props.payBill({amount})
+    }
+    catch(err){
+        console.error(err.response.data);
+    }
+      
   }
 
   return (
@@ -22,18 +49,25 @@ const Bill = (props) => {
         <ModalBody>
             <strong>Net Amount: {props.amount}</strong>
 
-            <Form onSubmit={onSubmit}>
+            {
+              props.amount>=0 
+              
+                &&
 
-                <FormGroup>
-                    <Label>Amount</Label>
-                    <Input type="number" placeholder="Add Amount"  value={amount} onChange={(event) => setAmount(event.target.value)} />
-                    <FormText color="muted">
-                        Enter the bill amount which want to pay
-                    </FormText>
-                </FormGroup>
+              <Form onSubmit={onSubmit}>
 
-                <Button>Pay</Button>
-            </Form>
+                  <FormGroup>
+                      <Label>Amount</Label>
+                      <Input type="number" placeholder="Add Amount"  value={amount} onChange={(event) => setAmount(event.target.value)} />
+                      <FormText color="muted">
+                          Enter the bill amount which want to pay
+                      </FormText>
+                  </FormGroup>
+
+                  <Button>Pay</Button>
+              </Form>
+            }
+
         </ModalBody>
         <ModalFooter>
           <Button color="secondary" onClick={toggle}>Cancel</Button>

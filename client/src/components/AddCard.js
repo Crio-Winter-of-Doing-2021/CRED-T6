@@ -39,18 +39,19 @@ const AddCard = ({ onAdd }) => {
             //.setItem('token', res.data.token);
             console.log(res.data);
             //setAuthenticated(true);
+            onAdd({cardNo, expiryDate, name})
+
+            setCardNo('');
+            setExpiryDate('');
+            setName('');
+            setCvc('');
+            setFocus('');
         }
         catch(err){
             console.error(err.response.data);
         }
         //alert("Card Added");
-        onAdd({cardNo, expiryDate, name})
-
-        setCardNo('');
-        setExpiryDate('');
-        setName('');
-        setCvc('');
-        setFocus('');
+        
     }
 
     return (

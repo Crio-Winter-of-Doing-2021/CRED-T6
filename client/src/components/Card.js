@@ -3,15 +3,22 @@ import Bill from './Bill'
 import { Container, Row, Col } from 'reactstrap';
 import { useState,useEffect } from 'react'
 import axios from 'axios';
+import Cards from 'react-credit-cards';
 
 const Card = ({ card, payBill }) => {
     const [transactions,setTransactions] = useState([]);
-    const getTransactions = async (card) =>{
+    const [amount, setAmount] = useState(0);
+    const getTransactions = async () =>{
         try{
-          const res = await axios.get(`/transactions/${card}`);
+          const res = await axios.get(`/transactions/${card._id}`);
           //setData(res.data)
           console.log(res);
           setTransactions(res.data);
+          let x = 0;
+          transactions.map((i)=>{
+              x+=i.amount;
+          });
+          setAmount(x);
           return;
       }
       catch(err){
@@ -23,28 +30,37 @@ const Card = ({ card, payBill }) => {
       useEffect(()=>{
         //();
         getTransactions();
+        //getAmount();
     },[])    
     return (
         <div className="card">
-            <h3>
+            
             <Container>
                 <Row>
-                    {card.cardNumber} 
+                    <Col>
+                        <Cards 
+                            number={card.cardNumber}
+                            name={card.name}
+                            expiry={card.expiryDate}
+                        />
+                    </Col>
                 </Row>
                 <Row>
-                <Col> {card.expiryDate} </Col>    
-                <Col> {card.name} </Col>    
+                    <Col>
+                        Amount: {amount}
+                    </Col>
                 </Row>
                 <Row>
-                    {card.amount}
-                </Row>  
+                    <Col>
+                        <Statements text={"View Statement"} transactions={transactions} amount={amount}/> 
+                    </Col>
+                    <Col>
+                        <Bill text={"Pay Bill"} amount={amount} payBill={payBill} card={card._id}/>
+                    </Col>
+                </Row>
             </Container>
-            </h3>
-            <Statements text={"View Statement"} transactions={transactions} amount={card.amount}/> 
-            <Bill text={"Pay Bill"} amount={card.amount} payBill={payBill} />
-            
-            
         
+
         </div>
     )
 }

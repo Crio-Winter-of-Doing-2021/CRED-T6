@@ -20,6 +20,10 @@ const TransactionSchema = new mongoose.Schema({
     type:{
         type: String,
         required: true
+    },
+    date:{
+        type:String,
+        required: true
     }
 
 })
