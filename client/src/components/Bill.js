@@ -22,18 +22,25 @@ const Bill = (props) => {
         <ModalBody>
             <strong>Net Amount: {props.amount}</strong>
 
-            <Form onSubmit={onSubmit}>
+            {
+              props.amount>0 
+              
+                &&
 
-                <FormGroup>
-                    <Label>Amount</Label>
-                    <Input type="number" placeholder="Add Amount"  value={amount} onChange={(event) => setAmount(event.target.value)} />
-                    <FormText color="muted">
-                        Enter the bill amount which want to pay
-                    </FormText>
-                </FormGroup>
+              <Form onSubmit={onSubmit}>
 
-                <Button>Pay</Button>
-            </Form>
+                  <FormGroup>
+                      <Label>Amount</Label>
+                      <Input type="number" placeholder="Add Amount"  value={amount} onChange={(event) => setAmount(event.target.value)} />
+                      <FormText color="muted">
+                          Enter the bill amount which want to pay
+                      </FormText>
+                  </FormGroup>
+
+                  <Button>Pay</Button>
+              </Form>
+            }
+
         </ModalBody>
         <ModalFooter>
           <Button color="secondary" onClick={toggle}>Cancel</Button>
