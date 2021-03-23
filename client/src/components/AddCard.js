@@ -12,6 +12,8 @@ const AddCard = ({ onAdd }) => {
     const [name, setName] = useState('');
     const [cvc, setCvc] = useState('');
     const [focus, setFocus] = useState('');
+    const [regExp] = useState(/^[0-9/]+$/);
+    const [regName] = useState(/^[a-zA-Z ]+$/);
 
     const onSubmit = async (event) => {
         event.preventDefault();
@@ -68,7 +70,39 @@ const AddCard = ({ onAdd }) => {
     }
 
     const checkExpiryDate = (event) => {
+        
+        let date = event.target.value;
 
+        if (date === '' || regExp.test(date)) {
+            setExpiryDate(date);
+        }
+        else {
+            alert("Enter valid date");
+            return;
+        }
+
+    }
+
+    const checkCvc = (event) => {
+        let number = event.target.value;
+
+        if(!Number(number)) {
+            alert("Enter only numbers");
+            return;
+        };
+        setCvc(number);
+    }
+
+    const checkName = (event) => {
+        let name = event.target.value;
+
+        if (name === '' || regName.test(name)) {
+            setName(name);
+        }
+        else {
+            alert("Enter valid name");
+            return;
+        }
     }
 
     return (
@@ -111,7 +145,7 @@ const AddCard = ({ onAdd }) => {
                             name="name"
                             placeholder="Name" 
                             value={name} 
-                            onChange={(event) => setName(event.target.value)} 
+                            onChange={checkName} 
                             onFocus={(event) => setFocus(event.target.name)}
                         />
                     </FormGroup>
@@ -127,8 +161,9 @@ const AddCard = ({ onAdd }) => {
                             name="expiryDate"
                             placeholder="MM/YY Expiry" 
                             value={expiryDate} 
-                            onChange={(event) => setExpiryDate(event.target.value)} 
+                            onChange={checkExpiryDate} 
                             onFocus={(event) => setFocus(event.target.name)}
+                            maxLength="5"
                         />
                     </FormGroup>
                 </Col>
@@ -140,7 +175,7 @@ const AddCard = ({ onAdd }) => {
                             name="cvc"
                             placeholder="CVC" 
                             value={cvc} 
-                            onChange={(event) => setCvc(event.target.value)} 
+                            onChange={checkCvc} 
                             onFocus={(event) => setFocus(event.target.name)}
                             maxLength="4"
                         />
