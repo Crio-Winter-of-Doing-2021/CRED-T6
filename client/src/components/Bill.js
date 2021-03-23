@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Form, FormGroup, Label, Input, FormText } from 'reactstrap'
+import swal from 'sweetalert';
 
 const Bill = (props) => {
 
@@ -11,9 +12,12 @@ const Bill = (props) => {
   const toggle = () => setModal(!modal);
 
   const onSubmit = async () => {
-      if(amount>props.amount)
-      {
-        alert('Enter amount is more than net amount');
+
+      if(amount>props.amount) {
+        swal({
+          text: 'Enter amount is more than net amount',
+          icon: "warning"
+        });
       }
       const timeElapsed = Date.now();
       const today = new Date(timeElapsed);

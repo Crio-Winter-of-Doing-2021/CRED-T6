@@ -4,6 +4,7 @@ import { Container, Row, Col} from 'reactstrap';
 import Cards from 'react-credit-cards';
 import 'react-credit-cards/es/styles-compiled.css';
 import axios from 'axios';
+import swal from 'sweetalert';
 
 const AddCard = ({ onAdd }) => {
 
@@ -19,7 +20,11 @@ const AddCard = ({ onAdd }) => {
         event.preventDefault();
 
         if(!cardNo || !expiryDate || !name || !cvc) {
-            alert("Please complete all the fields")
+            swal({
+                text:"Please complete all the fields",
+                dangerMode:true,
+                icon:"warning"
+            });
             return 
         }
 
@@ -50,9 +55,15 @@ const AddCard = ({ onAdd }) => {
             setName('');
             setCvc('');
             setFocus('');
+
+            
         }
         catch(err){
             console.error(err.response.data);
+            swal({
+                text: "Invalid Credentials",
+                icon: "error"
+            });
         }
         //alert("Card Added");
         
@@ -62,8 +73,12 @@ const AddCard = ({ onAdd }) => {
 
         let number = event.target.value;
 
-        if(!Number(number)) {
-            alert("Enter only numbers");
+        if(number !== '' && !Number(number)) {
+            swal({
+                text: "Enter valid Card Number",
+                icon: "warning",
+                dangerMode: true
+            });
             return;
         };
         setCardNo(number);
@@ -77,7 +92,11 @@ const AddCard = ({ onAdd }) => {
             setExpiryDate(date);
         }
         else {
-            alert("Enter valid date");
+            swal({
+                text: "Enter valid date",
+                dangerMode: true,
+                icon: "warning"
+            });
             return;
         }
 
@@ -86,8 +105,12 @@ const AddCard = ({ onAdd }) => {
     const checkCvc = (event) => {
         let number = event.target.value;
 
-        if(!Number(number)) {
-            alert("Enter only numbers");
+        if(number !== '' && !Number(number)) {
+            swal({
+                text: "Enter valid CVC",
+                dangerMode: true,
+                icon: "warning"
+            });
             return;
         };
         setCvc(number);
@@ -100,7 +123,11 @@ const AddCard = ({ onAdd }) => {
             setName(name);
         }
         else {
-            alert("Enter valid name");
+            swal({
+                text: "Enter valid name",
+                dangerMode: true,
+                icon: "warning"
+            });
             return;
         }
     }

@@ -5,6 +5,7 @@ import Button from './Button'
 import ViewCards from './ViewCards'
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
+import swal from 'sweetalert'
 
 const MyCred = () => {
   
@@ -63,13 +64,19 @@ const MyCred = () => {
   
   const addCard = (event) => {
     console.log(event);
-    alert("Card Added");
+    swal({
+      title: "Card Added!",
+      icon: "success"
+  });
     setShowAddCard(!showAddCard)
   }
 
   const payBill = (event) => {
     console.log(event);
-    alert("Bill paid");
+    swal({
+      title: "Bill Paid!",
+      icon: "success",
+    });
   }
   
   useEffect(()=>{
