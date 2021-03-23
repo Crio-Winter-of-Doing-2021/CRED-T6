@@ -14,8 +14,8 @@ const Statements = (props) => {
 
         <ModalHeader toggle={toggle}>Transactions</ModalHeader>
         <ModalBody>
-          <div className="card outline">
-            <Table>
+          
+            <Table responsive>
               <thead>
                 <tr>
                   <th>#</th>
@@ -41,7 +41,7 @@ const Statements = (props) => {
               </tbody>
             </Table>
             <strong>Net Amount: {props.amount}</strong>
-          </div>
+          
         </ModalBody>
         <ModalFooter>
           <Button  color="secondary" onClick={toggle}>Ok</Button>

@@ -50,7 +50,7 @@ const Bill = (props) => {
             <strong>Net Amount: {props.amount}</strong>
 
             {
-              props.amount>=0 
+              props.amount>0 
               
                 &&
 
