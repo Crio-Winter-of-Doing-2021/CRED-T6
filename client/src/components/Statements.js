@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Table } from 'reactstrap';
 
 const Statements = (props) => {
@@ -6,7 +6,7 @@ const Statements = (props) => {
   const [modal, setModal] = useState(false);
 
   const toggle = () => setModal(!modal);
-
+  
   return (
     <div>
       <Button color="primary" onClick={toggle}><strong>{props.text}</strong></Button>
@@ -23,6 +23,7 @@ const Statements = (props) => {
                   <th>{"Vendor"}</th>
                   <th>{"Type"}</th>
                   <th>{"Category"}</th>
+                  <th>{"Date"}</th>
                 </tr>
               </thead>
               <tbody>
@@ -33,6 +34,7 @@ const Statements = (props) => {
                       <td>{data.vendor}</td>
                       <td>{data.type}</td>
                       <td>{data.category} </td>
+                      <td>{data.date} </td>
                     </tr>
                 ))}
                 

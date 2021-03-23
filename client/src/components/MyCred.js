@@ -94,7 +94,7 @@ const MyCred = () => {
           } }/>
       <Header user={user} />
       <div className="outline">
-        <div>
+          <div>
           <Button 
             color={showAddCard ? "red" : "green"} 
             text={showAddCard ? "Close" : "Add New Card"} 
@@ -103,7 +103,7 @@ const MyCred = () => {
 
           { showAddCard && <AddCard onAdd={addCard} /> }
           
-        </div>
+          </div>
 
         <Button 
           color={showViewCards ? "red" : "green"} 

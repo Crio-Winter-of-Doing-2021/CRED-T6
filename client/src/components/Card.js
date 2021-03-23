@@ -7,12 +7,18 @@ import Cards from 'react-credit-cards';
 
 const Card = ({ card, payBill }) => {
     const [transactions,setTransactions] = useState([]);
-    const getTransactions = async (card) =>{
+    const [amount, setAmount] = useState(0);
+    const getTransactions = async () =>{
         try{
-          const res = await axios.get(`/transactions/${card}`);
+          const res = await axios.get(`/transactions/${card._id}`);
           //setData(res.data)
           console.log(res);
           setTransactions(res.data);
+          let x = 0;
+          transactions.map((i)=>{
+              x+=i.amount;
+          });
+          setAmount(x);
           return;
       }
       catch(err){
@@ -24,30 +30,32 @@ const Card = ({ card, payBill }) => {
       useEffect(()=>{
         //();
         getTransactions();
+        //getAmount();
     },[])    
     return (
         <div className="card">
             
             <Container>
                 <Row>
+                    <Col>
                         <Cards 
                             number={card.cardNumber}
                             name={card.name}
                             expiry={card.expiryDate}
                         />
-        
-                </Row>
-                <Row>
-                    <Col>
-                        Amount: {card.amount}
                     </Col>
                 </Row>
                 <Row>
                     <Col>
-                        <Statements text={"View Statement"} transactions={transactions} amount={card.amount}/> 
+                        Amount: {amount}
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Statements text={"View Statement"} transactions={transactions} amount={amount}/> 
                     </Col>
                     <Col>
-                        <Bill text={"Pay Bill"} amount={card.amount} payBill={payBill} />
+                        <Bill text={"Pay Bill"} amount={amount} payBill={payBill} card={card._id}/>
                     </Col>
                 </Row>
             </Container>
@@ -56,7 +64,5 @@ const Card = ({ card, payBill }) => {
         </div>
     )
 }
-
-// Col not working for Bill & Statement
 
 export default Card
