@@ -98,20 +98,21 @@ const MyCred = () => {
           onClick={() => {
             localStorage.removeItem('token');
             setAuthenticated(false);
-          } }/>
+          }}
+      />
+
       <Header user={user} />
+
       <div className="outline">
-          <div>
-          <Button 
-            color={showAddCard ? "red" : "green"} 
-            text={showAddCard ? "Close" : "Add New Card"} 
-            onClick={() => setShowAddCard(!showAddCard) }
-          />
+        
+        <Button 
+          color={showAddCard ? "red" : "green"} 
+          text={showAddCard ? "Close" : "Add New Card"} 
+          onClick={() => setShowAddCard(!showAddCard) }
+        />
 
-          { showAddCard && <AddCard onAdd={addCard} /> }
+        { showAddCard && <AddCard onAdd={addCard} /> }
           
-          </div>
-
         <Button 
           color={showViewCards ? "red" : "green"} 
           text={showViewCards ? "Close" : "View Card"} 
