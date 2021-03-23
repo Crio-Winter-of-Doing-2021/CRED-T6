@@ -30,13 +30,12 @@ const Card = ({ card, payBill }) => {
             
             <Container>
                 <Row>
-                    <Col>
                         <Cards 
                             number={card.cardNumber}
                             name={card.name}
                             expiry={card.expiryDate}
                         />
-                    </Col>
+        
                 </Row>
                 <Row>
                     <Col>

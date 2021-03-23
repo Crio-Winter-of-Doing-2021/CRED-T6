@@ -4,6 +4,7 @@ import { Container, Row, Col} from 'reactstrap';
 import Cards from 'react-credit-cards';
 import 'react-credit-cards/es/styles-compiled.css';
 import axios from 'axios';
+
 const AddCard = ({ onAdd }) => {
 
     const [cardNo, setCardNo] = useState('');
@@ -19,6 +20,7 @@ const AddCard = ({ onAdd }) => {
             alert("Please complete all the fields")
             return 
         }
+
         const newCard = {
             cardNumber : cardNo,
             expiryDate,
@@ -53,6 +55,21 @@ const AddCard = ({ onAdd }) => {
         setFocus('');
     }
 
+    const checkCardNo = (event) => {
+
+        let number = event.target.value;
+
+        if(!Number(number)) {
+            alert("Enter only numbers");
+            return;
+        };
+        setCardNo(number);
+    }
+
+    const checkExpiryDate = (event) => {
+
+    }
+
     return (
         <>
         <Cards 
@@ -76,8 +93,9 @@ const AddCard = ({ onAdd }) => {
                             name="cardNo"
                             placeholder="Card Number"  
                             value={cardNo} 
-                            onChange={(event) => setCardNo(event.target.value)} 
+                            onChange={checkCardNo} 
                             onFocus={(event) => setFocus(event.target.name)}
+                            maxLength="16"
                         />
                 </FormGroup>
                 </Col>
@@ -123,6 +141,7 @@ const AddCard = ({ onAdd }) => {
                             value={cvc} 
                             onChange={(event) => setCvc(event.target.value)} 
                             onFocus={(event) => setFocus(event.target.name)}
+                            maxLength="4"
                         />
                     </FormGroup>
                 </Col>
