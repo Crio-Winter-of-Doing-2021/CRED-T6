@@ -11,14 +11,18 @@ const Bill = (props) => {
 
   const toggle = () => setModal(!modal);
 
-  const onSubmit = async () => {
+  const onSubmit = async (event) => {
 
-      if(amount>props.amount) {
+      event.preventDefault();
+
+      if(amount > props.amount) {
         swal({
           text: 'Enter amount is more than net amount',
           icon: "warning"
         });
+        return;
       }
+
       const timeElapsed = Date.now();
       const today = new Date(timeElapsed);
       const payment = {card:props.card, amount:amount*(-1),vendor:"-",type:"Bill payment",category:"Debit",date:today.toDateString()}
@@ -36,8 +40,14 @@ const Bill = (props) => {
         //localStorage.setItem('token', res.data.token);
         console.log(res.data);
         //setAuthenticated(true);
-        toggle()
-        props.payBill({amount})
+
+        swal({
+          title: "Bill Paid!",
+          icon: "success",
+        });
+
+        setTimeout(() => window.location.reload(false),1000);
+
     }
     catch(err){
         console.error(err.response.data);

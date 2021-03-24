@@ -73,10 +73,6 @@ const MyCred = () => {
 
   const payBill = (event) => {
     console.log(event);
-    swal({
-      title: "Bill Paid!",
-      icon: "success",
-    });
   }
   
   useEffect(()=>{
@@ -113,13 +109,17 @@ const MyCred = () => {
 
         { showAddCard && <AddCard onAdd={addCard} /> }
           
-        <Button 
-          color={showViewCards ? "red" : "green"} 
-          text={showViewCards ? "Close" : "View Card"} 
-          onClick={() => setShowViewCards(!showViewCards) }
-        />
+        {
+          data.length > 0
+            &&
+          <Button 
+            color={showViewCards ? "red" : "green"} 
+            text={showViewCards ? "Close" : "View Card"} 
+            onClick={() => setShowViewCards(!showViewCards) }
+          />
+        }
 
-        { data.length>0 && showViewCards && <ViewCards cards={data} payBill={payBill}/>}
+        { showViewCards && <ViewCards cards={data} payBill={payBill}/>}
       
       </div>
     </div>

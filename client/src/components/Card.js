@@ -1,7 +1,7 @@
 import Statements from './Statements'
 import Bill from './Bill'
 import { Container, Row, Col } from 'reactstrap';
-import { useState,useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios';
 import Cards from 'react-credit-cards';
 
@@ -18,9 +18,11 @@ const Card = ({ card, payBill }) => {
             console.log(res);
             setTransactions(res.data);
             let x = 0;
-            transactions.map((i)=>{
+            
+            res.data.map((i)=>{
                 x+=i.amount;
             });
+            
             setAmount(x);
             return;
         }
@@ -34,6 +36,7 @@ const Card = ({ card, payBill }) => {
     useEffect(()=>{
         //();
         getTransactions();
+        console.log(amount);
         //getAmount();
     },[])  
       

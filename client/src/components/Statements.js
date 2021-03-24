@@ -10,12 +10,12 @@ const Statements = (props) => {
   return (
     <div>
       <Button color="primary" onClick={toggle}><strong>{props.text}</strong></Button>
-      <Modal isOpen={modal} toggle={toggle} fullscreen="lg" size="md">
+      <Modal isOpen={modal} toggle={toggle} fullscreen="lg" size="lg">
 
         <ModalHeader toggle={toggle}>Transactions</ModalHeader>
         <ModalBody>
           
-            <Table responsive>
+            <Table responsive striped>
               <thead>
                 <tr>
                   <th>#</th>
