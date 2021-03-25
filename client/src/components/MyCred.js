@@ -69,6 +69,7 @@ const MyCred = () => {
       icon: "success"
   });
     setShowAddCard(!showAddCard)
+    setTimeout(() => window.location.reload(false) ,1000);
   }
 
   const payBill = (event) => {
@@ -89,6 +90,7 @@ const MyCred = () => {
 
    return (
     <div className="container-fluid">
+      
       <Button color="red"  
           text="Sign Out" 
           onClick={() => {

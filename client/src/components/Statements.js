@@ -30,7 +30,7 @@ const Statements = (props) => {
                 {props.transactions.map((data, idx) => (
                     <tr key={idx}>
                       <th scope="row">{idx+1}</th>
-                      <td>{data.amount}</td>
+                      <td>{Math.abs(data.amount)}</td>
                       <td>{data.vendor}</td>
                       <td>{data.type}</td>
                       <td>{data.category} </td>
