@@ -1,37 +1,45 @@
 import Statements from './Statements'
 import Bill from './Bill'
 import { Container, Row, Col } from 'reactstrap';
-import { useState,useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios';
 import Cards from 'react-credit-cards';
 
 const Card = ({ card, payBill }) => {
+
     const [transactions,setTransactions] = useState([]);
     const [amount, setAmount] = useState(0);
+
     const getTransactions = async () =>{
+
         try{
-          const res = await axios.get(`/transactions/${card._id}`);
-          //setData(res.data)
-          console.log(res);
-          setTransactions(res.data);
-          let x = 0;
-          transactions.map((i)=>{
-              x+=i.amount;
-          });
-          setAmount(x);
-          return;
-      }
-      catch(err){
-          console.log(err);
-          //setAuthenticated(false);
-          return;
-      }
-      }
-      useEffect(()=>{
+            const res = await axios.get(`/transactions/${card._id}`);
+            //setData(res.data)
+            console.log(res);
+            setTransactions(res.data);
+            let x = 0;
+            
+            res.data.map((i)=>{
+                x+=i.amount;
+            });
+            
+            setAmount(x);
+            return;
+        }
+        catch(err){
+            console.log(err);
+            //setAuthenticated(false);
+            return;
+        }
+    }
+
+    useEffect(()=>{
         //();
         getTransactions();
+        console.log(amount);
         //getAmount();
-    },[])    
+    },[])  
+      
     return (
         <div className="card">
             

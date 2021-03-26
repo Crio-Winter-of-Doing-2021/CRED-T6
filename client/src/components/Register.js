@@ -1,7 +1,7 @@
 import React,{Fragment, useState, useEffect} from 'react'
 import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
-
+import swal from 'sweetalert';
 const Register = () => {
     const [formData, setFormData] = useState({
       name: '',
@@ -19,6 +19,10 @@ const Register = () => {
       if(password !== password2) {
        // setAlert('Passwords do not match', 'danger');
        console.log('Passwords do not match');
+       swal({
+        text: `Passwords do not match`,
+        icon: "warning"
+      });
         } else {
          const newUser = {
              name,
@@ -41,6 +45,10 @@ const Register = () => {
          }
          catch(err){
              console.error(err.response.data);
+             swal({
+              text: `${err.response.data.errors[0].msg}`,
+              icon: "error"
+            });
          }
       }
     };
@@ -82,7 +90,12 @@ const Register = () => {
     }
   
     return (
-      <Fragment>
+      <div className='container-fluid' style = {{
+        paddingTop:'20vh',
+        paddingLeft:'10vw',
+        paddingRight:'10vw',
+      }}>
+
         <h1 className="large text-primary">Sign Up</h1>
         <p className="lead">
           <i className="fas fa-user" /> Create Your Account
@@ -95,6 +108,7 @@ const Register = () => {
               name="name"
               value={name}
               onChange={onChange}
+              required
             />
           </div>
           <div className="form-group">
@@ -104,6 +118,7 @@ const Register = () => {
               name="email"
               value={email}
               onChange={onChange}
+              required
             />
           </div>
           <div className="form-group">
@@ -113,6 +128,7 @@ const Register = () => {
               name="password"
               value={password}
               onChange={onChange}
+              required
             />
           </div>
           <div className="form-group">
@@ -122,14 +138,15 @@ const Register = () => {
               name="password2"
               value={password2}
               onChange={onChange}
+              required
             />
           </div>
           <input type="submit" className="btn btn-primary" value="Register" />
         </form>
         <p className="my-1">
-          Already have an account? <Link to="/login">Sign In</Link>
+          Already have an account? <Link to="/login" >Sign In</Link>
         </p>
-      </Fragment>
+      </div>
     );
   };
 

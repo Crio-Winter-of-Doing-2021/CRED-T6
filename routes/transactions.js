@@ -9,7 +9,8 @@ router.get('/:card',auth,async(req,res)=>{
     //const {card} = req.params.card;
     try{
         //const transactions = await Transaction.find({"card": new ObjectId(card)});
-        const transactions = await Transaction.find({card:req.params.card});
+        const transactions = await Transaction.find({card:req.params.card}).sort();
+        transactions.reverse();
         //console.log(req.params);
         res.json(transactions);
     }

@@ -1,6 +1,7 @@
-import React, { Fragment, useState,useEffect } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
+import swal from 'sweetalert';
 
 const Login = () => {
     const [formData, setFormData] = useState({
@@ -31,11 +32,15 @@ const Login = () => {
 
         const res = await axios.post('/auth',body, config);
         localStorage.setItem('token', res.data.token);
-        console.log(res.data);
+        //console.log(res.data);
         setAuthenticated(true);
     }
     catch(err){
-        console.error(err.response.data);
+        console.log(err.response);
+        swal({
+          text: `${err.response.data.errors[0].msg}`,
+          icon: "error"
+        });
     }
     };
   
@@ -74,7 +79,11 @@ const Login = () => {
     }
   
     return (
-      <Fragment>
+      <div className='container-fluid' style = {{
+        paddingTop:'20vh',
+        paddingLeft:'10vw',
+        paddingRight:'10vw',
+      }}>
         <h1 className="large text-primary">Sign In</h1>
         <p className="lead">
           <i className="fas fa-user" /> Sign Into Your Account
@@ -98,6 +107,7 @@ const Login = () => {
               value={password}
               onChange={onChange}
               minLength="6"
+              required
             />
           </div>
           <input type="submit" className="btn btn-primary" value="Login" />
@@ -105,7 +115,7 @@ const Login = () => {
         <p className="my-1">
           Don't have an account? <Link to="/register">Sign Up</Link>
         </p>
-      </Fragment>
+      </div>
     );
   };
 

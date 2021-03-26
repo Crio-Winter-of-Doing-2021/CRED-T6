@@ -10,12 +10,12 @@ const Statements = (props) => {
   return (
     <div>
       <Button color="primary" onClick={toggle}><strong>{props.text}</strong></Button>
-      <Modal isOpen={modal} toggle={toggle} fullscreen="lg" size="md">
+      <Modal isOpen={modal} toggle={toggle} fullscreen="lg" size="lg">
 
         <ModalHeader toggle={toggle}>Transactions</ModalHeader>
         <ModalBody>
-          <div className="card outline">
-            <Table>
+          
+            <Table responsive striped>
               <thead>
                 <tr>
                   <th>#</th>
@@ -30,7 +30,7 @@ const Statements = (props) => {
                 {props.transactions.map((data, idx) => (
                     <tr key={idx}>
                       <th scope="row">{idx+1}</th>
-                      <td>{data.amount}</td>
+                      <td>{Math.abs(data.amount)}</td>
                       <td>{data.vendor}</td>
                       <td>{data.type}</td>
                       <td>{data.category} </td>
@@ -41,7 +41,7 @@ const Statements = (props) => {
               </tbody>
             </Table>
             <strong>Net Amount: {props.amount}</strong>
-          </div>
+          
         </ModalBody>
         <ModalFooter>
           <Button  color="secondary" onClick={toggle}>Ok</Button>

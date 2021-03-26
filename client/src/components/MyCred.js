@@ -5,6 +5,7 @@ import Button from './Button'
 import ViewCards from './ViewCards'
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
+import swal from 'sweetalert'
 
 const MyCred = () => {
   
@@ -63,13 +64,16 @@ const MyCred = () => {
   
   const addCard = (event) => {
     console.log(event);
-    alert("Card Added");
+    swal({
+      title: "Card Added!",
+      icon: "success"
+  });
     setShowAddCard(!showAddCard)
+    setTimeout(() => window.location.reload(false) ,1000);
   }
 
   const payBill = (event) => {
     console.log(event);
-    alert("Bill paid");
   }
   
   useEffect(()=>{
@@ -86,32 +90,38 @@ const MyCred = () => {
 
    return (
     <div className="container-fluid">
+      
       <Button color="red"  
           text="Sign Out" 
           onClick={() => {
             localStorage.removeItem('token');
             setAuthenticated(false);
-          } }/>
+          }}
+      />
+
       <Header user={user} />
+
       <div className="outline">
-          <div>
-          <Button 
-            color={showAddCard ? "red" : "green"} 
-            text={showAddCard ? "Close" : "Add New Card"} 
-            onClick={() => setShowAddCard(!showAddCard) }
-          />
-
-          { showAddCard && <AddCard onAdd={addCard} /> }
-          
-          </div>
-
+        
         <Button 
-          color={showViewCards ? "red" : "green"} 
-          text={showViewCards ? "Close" : "View Card"} 
-          onClick={() => setShowViewCards(!showViewCards) }
+          color={showAddCard ? "red" : "green"} 
+          text={showAddCard ? "Close" : "Add New Card"} 
+          onClick={() => setShowAddCard(!showAddCard) }
         />
 
-        { data.length>0 && showViewCards && <ViewCards cards={data} payBill={payBill}/>}
+        { showAddCard && <AddCard onAdd={addCard} /> }
+          
+        {
+          data.length > 0
+            &&
+          <Button 
+            color={showViewCards ? "red" : "green"} 
+            text={showViewCards ? "Close" : "View Card"} 
+            onClick={() => setShowViewCards(!showViewCards) }
+          />
+        }
+
+        { showViewCards && <ViewCards cards={data} payBill={payBill}/>}
       
       </div>
     </div>
