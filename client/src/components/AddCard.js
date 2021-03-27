@@ -221,4 +221,3 @@ const AddCard = ({ onAdd }) => {
 }
 
 export default AddCard
-

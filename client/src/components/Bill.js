@@ -10,23 +10,33 @@ const Bill = (props) => {
   const [amount, setAmount ] = useState('');
 
   const toggle = () => setModal(!modal);
+  
+  function formatDate(date, format) {
+    const map = {
+        mm: date.getMonth() + 1,
+        dd: date.getDate(),
+        yy: date.getFullYear().toString().slice(-2),
+        yyyy: date.getFullYear()
+    }
 
+    return format.replace(/mm|dd|yy|yyy/gi, matched => map[matched])
+} 
   const onSubmit = async (event) => {
 
       event.preventDefault();
-
       if(amount > props.amount) {
         swal({
-          text: 'Enter amount is more than net amount',
+          text: 'Entered amount is more than net amount',
           icon: "warning"
         });
         return;
       }
-
+     
       const timeElapsed = Date.now();
       const today = new Date(timeElapsed);
-      const payment = {card:props.card, amount:amount*(-1),vendor:"-",type:"Bill payment",category:"Debit",date:today.toDateString()}
+      const payment = {card:props.card, amount:amount*(-1),vendor:"Self",type:"Bill payment",category:"Debit",date:formatDate(today,'dd/mm/yy')}
       console.log(payment);
+      //return;
     try{
         const config = {
             headers:{
@@ -72,7 +82,7 @@ const Bill = (props) => {
 
                   <FormGroup>
                       <Label>Amount</Label>
-                      <Input type="number" placeholder="Add Amount"  value={amount} onChange={(event) => setAmount(event.target.value)} />
+                      <Input type="number" placeholder="Add Amount"  value={amount} onChange={(event) => setAmount(event.target.value)} required/>
                       <FormText color="muted">
                           Enter the bill amount which want to pay
                       </FormText>
