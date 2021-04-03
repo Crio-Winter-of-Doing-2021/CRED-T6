@@ -54,13 +54,15 @@ const Card = ({ card, payBill }) => {
                     </Col>
                 </Row>
                 <Row>
-                {amount?
+                {
+                    amount ?
                     <Col style={{paddingLeft:'35%', fontSize:'20px'}}>
-                    <b>Amount: {amount}</b>
-                </Col>
-                    :<Col style={{paddingLeft:'40%', fontSize:'20px'}}>
-                    <b>Bill Paid!</b>
-                </Col>}
+                        <b>Amount: {amount}</b>
+                    </Col>
+                    : <Col style={{paddingLeft:'40%', fontSize:'20px'}}>
+                        <b>Bill Paid!</b>
+                    </Col>
+                }
                     
                 </Row>
                 <Row>
