@@ -19,22 +19,23 @@ const Statements = (props) => {
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>{"Amount"}</th>
-                  <th>{"Vendor"}</th>
-                  <th>{"Type"}</th>
-                  <th>{"Category"}</th>
                   <th>{"Date"}</th>
+                  <th>{"Vendor"}</th>
+                  <th>{"Category"}</th>
+                  <th>{"Type"}</th>
+                  <th>{"Amount"}</th>
+                  
                 </tr>
               </thead>
               <tbody>
                 {props.transactions.map((data, idx) => (
                     <tr key={idx}>
                       <th scope="row">{idx+1}</th>
-                      <td>{Math.abs(data.amount)}</td>
-                      <td>{data.vendor}</td>
-                      <td>{data.type}</td>
-                      <td>{data.category} </td>
                       <td>{data.date} </td>
+                      <td>{data.vendor}</td>
+                      <td style={ data.amount > 0 ? {color:"red"} : {color:"green"}}>{data.category} </td>
+                      <td>{data.type}</td>
+                      <td style={ data.amount > 0 ? {color:"red"} : {color:"green"}}>{Math.abs(data.amount)}</td>
                     </tr>
                 ))}
                 
