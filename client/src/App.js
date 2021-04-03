@@ -10,13 +10,13 @@ const App = () =>
 <Router>
 <Fragment>
   <Route exact path = '/' component = {Landing}/>
-  <section className = "container">
+  
   <Switch>
   <Route exact path = '/login' component = {Login}/>
   <Route exact path = '/register' component = {Register}/>
   <Route exact path = '/mycred' component = {MyCred}/>
   </Switch>
-  </section>
+
 </Fragment>
 </Router>
 export default App;
