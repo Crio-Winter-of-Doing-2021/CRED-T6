@@ -1,3 +1,7 @@
+.container {
+  padding: 0%;
+}
+
 .container-fluid {
     align-items: center;
     margin: 0%;
@@ -6,17 +10,17 @@
   
   .outline {
     overflow: auto;
-    padding: 2%;
-    border: 1px solid steelblue;
-    border-radius: 5px;
-    background-color:  #ffe6e6;
+    padding: 0%;
+    background-color: #1a1710;
+    width: 100%;
   }
   
   .header {
     overflow: auto;
-    border: 1px solid steelblue;
-    border-radius: 5px;
-    background-color:  #ffcccc;
+    color: #e8ba13;
+    display: flex;
+    justify-content: center;
+    background-color: #1a1710;
   }
   
   .welcome {
@@ -54,9 +58,9 @@
   }
   
   .card {
-    background: #f4f4f4;
+    background: #e8ba13;
     margin: 3% 3%;
     padding: 3% 1%;
     cursor: pointer;
+    border-radius: 4%;
   }
-  

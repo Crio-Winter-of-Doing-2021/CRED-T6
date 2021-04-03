@@ -1,12 +1,14 @@
 import Card from './Card'
-
+import { Container, Row, Col } from 'reactstrap';
 const ViewCards = ({ cards,  payBill }) => {
     return (
-        <div>
-            {cards.map((card) => (
-                <Card key={card.cardNumber} card={card}  payBill={payBill}/>
-            ))}
-        </div>
+         <Container>
+         <Row >
+         {cards.map((card) => (
+              <Col sx = '12' md = '6' lg='4' ><Card key={card.cardNumber} card={card}  payBill={payBill}/></Col>
+           ))}
+         </Row>
+       </Container>
     )
 }
 

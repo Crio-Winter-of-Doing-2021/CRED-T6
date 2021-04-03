@@ -39,6 +39,10 @@ async (req,res) =>
 {
     const {name,cardNumber,expiryDate,amount} = req.body;
     try{
+        let card = await Card.findOne({cardNumber});
+        if(card){
+            return res.status(400).json({errors:[{msg: "Card already exists"}]});
+        }
         card = new Card({user:req.user.id,name,cardNumber,expiryDate,amount});
         if(luhnChk(cardNumber))
         {

@@ -1,3 +1,7 @@
+*{
+  font-family: 'Fira Sans Extra Condensed', sans-serif;
+}
+
 ul {
     list-style: none;
 }
@@ -62,4 +66,3 @@ ul {
   button {
     font: inherit;
   }
-  

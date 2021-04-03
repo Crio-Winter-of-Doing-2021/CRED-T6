@@ -2,13 +2,16 @@ import React, { useState,useEffect } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import swal from 'sweetalert';
+import { Button, Modal, ModalBody } from 'reactstrap';
 
 const Login = () => {
     const [formData, setFormData] = useState({
       email: '',
       password: ''
     });
-  
+    const [modal, setModal] = useState(false);
+
+    const toggle = () => setModal(!modal);
     const { email, password } = formData;
     const [authenticated, setAuthenticated] = useState(false);
     const onChange = e =>
@@ -79,12 +82,11 @@ const Login = () => {
     }
   
     return (
-      <div className='container-fluid' style = {{
-        paddingTop:'20vh',
-        paddingLeft:'10vw',
-        paddingRight:'10vw',
-      }}>
-        <h1 className="large text-primary">Sign In</h1>
+      <div className='container-fluid'>
+         <Button color="danger" onClick={toggle} className="btn btn-primary">Sign In</Button>
+      <Modal isOpen={modal} toggle={toggle}>
+        <ModalBody>
+        <h1 className="large text-warning">Sign In</h1>
         <p className="lead">
           <i className="fas fa-user" /> Sign Into Your Account
         </p>
@@ -110,11 +112,11 @@ const Login = () => {
               required
             />
           </div>
-          <input type="submit" className="btn btn-primary" value="Login" />
+          <input type="submit" className="btn btn-warning" value="Login" />
         </form>
-        <p className="my-1">
-          Don't have an account? <Link to="/register">Sign Up</Link>
-        </p>
+        </ModalBody>
+      </Modal>
+        
       </div>
     );
   };
