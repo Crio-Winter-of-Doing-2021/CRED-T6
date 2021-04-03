@@ -1,7 +1,6 @@
 import React from 'react'
 import NavBar from './NavBar';
 import { Jumbotron } from 'reactstrap';
-
 import Login from './Login';
 import Register from './Register';
 const Landing = () => {
@@ -10,7 +9,9 @@ return (
         <NavBar/>
         <Jumbotron style = {{marginTop:'7vh',marginLeft:'10vw',marginRight:'10vw',width:'80vw'}}>
                 <div style = {{display: 'flex',justifyContent:'center'}}>
-                <div><p className="display-3" style={{fontFamily: "'Monoton', cursive"}}>CRED</p></div>
+                <div>
+                        
+                        <p className="display-3" style={{fontFamily: "'Monoton', cursive"}}>CRED</p></div>
                 </div>
 
                 <div style = {{display: 'flex',justifyContent:'center'}}>

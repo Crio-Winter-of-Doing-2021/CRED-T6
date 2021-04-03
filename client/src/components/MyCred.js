@@ -4,9 +4,10 @@ import AddCard from './AddCard'
 import Button from './Button'
 import ViewCards from './ViewCards'
 import { Redirect } from 'react-router-dom';
+import cred from '../img/cred.jpg';
 import axios from 'axios';
 import swal from 'sweetalert';
-import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Modal, ModalHeader, ModalBody} from 'reactstrap';
 import {
   Collapse,
   Navbar,
@@ -106,7 +107,7 @@ const MyCred = () => {
    return (
     <div className="container-fluid" >
       <Navbar color="warning" light expand="md">
-        <NavbarBrand><h1 style={{fontFamily: "'Monoton', cursive"}}>CRED</h1></NavbarBrand>
+      <NavbarBrand style={{display:'flex'}}><img src={cred} className="logo"/><h1 style={{fontFamily: "'Monoton', cursive"}}>CRED</h1></NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-left" navbar style={{marginLeft:'60vw'}}>
