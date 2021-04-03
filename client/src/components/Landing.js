@@ -1,14 +1,16 @@
 import React from 'react'
 import NavBar from './NavBar';
-import { Jumbotron, Button } from 'reactstrap';
-import {Link} from 'react-router-dom'
+import { Jumbotron } from 'reactstrap';
+
+import Login from './Login';
+import Register from './Register';
 const Landing = () => {
 return (
 <div className='container-fluid' style = {{minHeight:'100vh',backgroundColor:'black',paddingBottom:'0%'}}>
         <NavBar/>
         <Jumbotron style = {{marginTop:'7vh',marginLeft:'10vw',marginRight:'10vw',width:'80vw'}}>
                 <div style = {{display: 'flex',justifyContent:'center'}}>
-                <div><p className="display-3">CRED</p></div>
+                <div><p className="display-3" style={{fontFamily: "'Monoton', cursive"}}>CRED</p></div>
                 </div>
 
                 <div style = {{display: 'flex',justifyContent:'center'}}>
@@ -23,13 +25,10 @@ return (
         </div>
         
         <div style = {{display: 'flex',justifyContent:'space-evenly',paddingBottom:'0%'}}>
-                <div> <Link to = '/login'>
-          <Button>Sign In</Button>
-        </Link></div>
+                <div> <Login/></div>
         <div>
-        <Link to = '/register'>
-          <Button >Sign Up</Button>
-        </Link></div>
+        <Register/>
+        </div>
                 </div>
        
         

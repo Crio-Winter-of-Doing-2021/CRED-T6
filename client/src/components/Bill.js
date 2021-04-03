@@ -34,7 +34,7 @@ const Bill = (props) => {
      
       const timeElapsed = Date.now();
       const today = new Date(timeElapsed);
-      const payment = {card:props.card, amount:amount*(-1),vendor:"Self",type:"Bill payment",category:"Debit",date:formatDate(today,'dd/mm/yy')}
+      const payment = {card:props.card, amount:amount*(-1),vendor:"Self",type:"Bill payment",category:"Credit",date:formatDate(today,'dd/mm/yy')}
       console.log(payment);
       //return;
     try{

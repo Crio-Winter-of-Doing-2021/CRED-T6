@@ -9,7 +9,8 @@ import {
   NavItem,
   NavLink,
 } from 'reactstrap';
-
+import Login from './Login';
+import Register from './Register';
 const Example = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -18,15 +19,15 @@ const Example = () => {
   return (
     <div>
       <Navbar color="warning" light expand="md">
-        <NavbarBrand href="/"><h1>CRED</h1></NavbarBrand>
+        <NavbarBrand href="/"><h1 style={{fontFamily: "'Monoton', cursive"}}>CRED</h1></NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
-          <Nav className="mr-left" navbar style={{marginLeft:'70%'}}>
+          <Nav className="mr-left" navbar style={{marginLeft:'70vw'}}>
             <NavItem>
-              <NavLink href="/login"><Button>Sign In</Button></NavLink>
+              <Login/>
             </NavItem>
             <NavItem>
-              <NavLink href="/register"><Button>Sign Up</Button></NavLink>
+              <Register/>
             </NavItem>
           </Nav>
         </Collapse>

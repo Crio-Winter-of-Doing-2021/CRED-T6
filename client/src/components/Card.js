@@ -4,7 +4,7 @@ import { Container, Row, Col } from 'reactstrap';
 import { useState, useEffect } from 'react'
 import axios from 'axios';
 import Cards from 'react-credit-cards';
-
+import {Button} from 'reactstrap'
 const Card = ({ card, payBill }) => {
 
     const [transactions,setTransactions] = useState([]);
@@ -54,16 +54,21 @@ const Card = ({ card, payBill }) => {
                     </Col>
                 </Row>
                 <Row>
-                    <Col>
-                        Amount: {amount}
-                    </Col>
+                {amount?
+                    <Col style={{paddingLeft:'35%', fontSize:'20px'}}>
+                    <b>Amount: {amount}</b>
+                </Col>
+                    :<Col style={{paddingLeft:'40%', fontSize:'20px'}}>
+                    <b>Bill Paid!</b>
+                </Col>}
+                    
                 </Row>
                 <Row>
                     <Col>
                         <Statements text={"View Statement"} transactions={transactions} amount={amount}/> 
                     </Col>
                     <Col>
-                        <Bill text={"Pay Bill"} amount={amount} payBill={payBill} card={card._id}/>
+                        {amount?<Bill text={"Pay Bill"} amount={amount} payBill={payBill} card={card._id}/>:<Button disabled>Pay Bill</Button>}
                     </Col>
                 </Row>
             </Container>

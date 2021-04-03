@@ -61,7 +61,7 @@ const AddCard = ({ onAdd }) => {
         catch(err){
             console.error(err.response.data);
             swal({
-                text: "Invalid Credentials",
+                text: `${err.response.data.errors[0].msg}`,
                 icon: "error"
             });
         }
@@ -210,7 +210,7 @@ const AddCard = ({ onAdd }) => {
                 </Col>
             </Row>
             <Row>
-                <Col>
+                <Col style={{width:'100%', display: 'flex',justifyContent: 'center'}}>
                     <Button  block>Add Card</Button>
                 </Col>
             </Row>

@@ -1,7 +1,9 @@
 import React,{Fragment, useState, useEffect} from 'react'
 import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
+import { Button, Modal, ModalBody } from 'reactstrap';
 import swal from 'sweetalert';
+
 const Register = () => {
     const [formData, setFormData] = useState({
       name: '',
@@ -10,7 +12,9 @@ const Register = () => {
       password2: ''
     });
     const { name, email, password, password2 } = formData;
-    
+    const [modal, setModal] = useState(false);
+
+    const toggle = () => setModal(!modal);
     const onChange = (e) =>
       setFormData({ ...formData, [e.target.name]: e.target.value });
     
@@ -90,13 +94,11 @@ const Register = () => {
     }
   
     return (
-      <div className='container-fluid' style = {{
-        paddingTop:'20vh',
-        paddingLeft:'10vw',
-        paddingRight:'10vw',
-      }}>
-
-        <h1 className="large text-primary">Sign Up</h1>
+      <div className='container-fluid' >
+        <Button color="danger" onClick={toggle}>Sign Up</Button>
+      <Modal isOpen={modal} toggle={toggle}>
+        <ModalBody>
+        <h1 className="large text-warning">Sign Up</h1>
         <p className="lead">
           <i className="fas fa-user" /> Create Your Account
         </p>
@@ -141,11 +143,11 @@ const Register = () => {
               required
             />
           </div>
-          <input type="submit" className="btn btn-primary" value="Register" />
+          <input type="submit" className="btn btn-warning" value="Register" />
         </form>
-        <p className="my-1">
-          Already have an account? <Link to="/login" >Sign In</Link>
-        </p>
+        </ModalBody>
+      </Modal>
+        
       </div>
     );
   };
