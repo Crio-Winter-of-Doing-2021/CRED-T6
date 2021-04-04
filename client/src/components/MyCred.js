@@ -110,7 +110,7 @@ const MyCred = () => {
       <NavbarBrand style={{display:'flex'}}><img src={cred} className="logo"/><h1 style={{fontFamily: "'Monoton', cursive"}}>CRED</h1></NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
-          <Nav className="mr-left" navbar style={{marginLeft:'60vw'}}>
+          <Nav className="mr-left" navbar style={{marginLeft:'50vw'}}>
             <NavItem>
       <Button color="danger" text = "Add Card" onClick={toggle2}/>
       <Modal isOpen={modal} toggle={toggle2}>
@@ -137,7 +137,7 @@ const MyCred = () => {
 
       <Header user={user} />
 
-      <div className="outline" style={{minHeight:'80vh'}}>
+      <div className="outline" style={{minHeight:'90vh'}}>
         
         
           

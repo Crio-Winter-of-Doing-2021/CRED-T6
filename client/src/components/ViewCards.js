@@ -5,7 +5,7 @@ const ViewCards = ({ cards,  payBill }) => {
          <Container>
          <Row >
          {cards.map((card) => (
-              <Col sx = '12' md = '6' lg='4' ><Card key={card.cardNumber} card={card}  payBill={payBill}/></Col>
+              <Col sx = '12' md = '6' lg='6' ><Card key={card.cardNumber} card={card}  payBill={payBill}/></Col>
            ))}
          </Row>
        </Container>
