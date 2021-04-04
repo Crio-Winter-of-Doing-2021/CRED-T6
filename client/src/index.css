@@ -8,6 +8,13 @@
     padding: 0%;
   }
   
+  .container-fluid2 {
+  background-image:
+    linear-gradient(
+      to bottom right, 
+      rgb(252, 230, 39), #f59314
+    );
+  }
   .outline {
     overflow: auto;
     padding: 0%;
@@ -58,7 +65,11 @@
   }
   
   .card {
-    background: #f6de88;
+  background-image:
+    linear-gradient(
+      to bottom, 
+      rgb(252, 230, 39), #f8991d
+    );
     margin: 3% 3%;
     padding: 3% 1%;
     cursor: pointer;

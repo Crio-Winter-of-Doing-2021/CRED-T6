@@ -13,7 +13,7 @@ const Card = ({ card, payBill }) => {
     const getTransactions = async () =>{
 
         try{
-            const res = await axios.get(`/transactions/${card._id}`);
+            const res = await axios.get(`/transactions/${card.cardNumber}`);
             //setData(res.data)
             console.log(res);
             setTransactions(res.data);
@@ -57,7 +57,7 @@ const Card = ({ card, payBill }) => {
                 {
                     amount ?
                     <Col style={{paddingLeft:'35%', fontSize:'20px'}}>
-                        <b>Amount: ₹{amount}</b>
+                        <b>Amount: ₹ {amount}</b>
                     </Col>
                     : <Col style={{paddingLeft:'40%', fontSize:'20px'}}>
                         <b>Bill Paid!</b>
@@ -70,7 +70,7 @@ const Card = ({ card, payBill }) => {
                         <Statements text={"View Statement"} transactions={transactions} amount={amount}/> 
                     </Col>
                     <Col>
-                        {amount?<Bill text={"Pay Bill"} amount={amount} payBill={payBill} card={card._id}/>:<Button disabled>Pay Bill</Button>}
+                        {amount?<Bill text={"Pay Bill"} amount={amount} payBill={payBill} card={card.cardNumber}/>:<Button disabled>Pay Bill</Button>}
                     </Col>
                 </Row>
             </Container>

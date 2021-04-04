@@ -35,7 +35,7 @@ const Statements = (props) => {
                       <td>{data.vendor}</td>
                       <td style={ data.amount > 0 ? {color:"red"} : {color:"green"}}>{data.category} </td>
                       <td>{data.type}</td>
-                      <td style={ data.amount > 0 ? {color:"red"} : {color:"green"}}>₹{Math.abs(data.amount)}</td>
+                      <td style={ data.amount > 0 ? {color:"red"} : {color:"green"}}>₹ {Math.abs(data.amount)}</td>
                     </tr>
                 ))}
                 

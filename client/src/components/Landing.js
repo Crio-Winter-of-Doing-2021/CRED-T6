@@ -7,7 +7,7 @@ const Landing = () => {
 return (
 <div className='container-fluid' style = {{minHeight:'100vh',backgroundColor:'black',paddingBottom:'0%'}}>
         <NavBar/>
-        <Jumbotron style = {{marginTop:'7vh',marginLeft:'10vw',marginRight:'10vw',width:'80vw'}}>
+        <Jumbotron className='container-fluid2' style = {{marginTop:'7vh',marginLeft:'10vw',marginRight:'10vw',width:'80vw'}}>
                 <div style = {{display: 'flex',justifyContent:'center'}}>
                 <div>
                         

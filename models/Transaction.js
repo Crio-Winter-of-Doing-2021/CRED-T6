@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 
 const TransactionSchema = new mongoose.Schema({
     card:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'card'
+        type: String,
+        required: true
     },
     amount:{
         type: Number,
