@@ -1,4 +1,5 @@
 import Statements from './Statements'
+import SmartStatements from './SmartStatements'
 import Bill from './Bill'
 import { Container, Row, Col } from 'reactstrap';
 import { useState, useEffect } from 'react'
@@ -71,6 +72,9 @@ const Card = ({ card, payBill }) => {
                     </Col>
                     <Col>
                         {amount?<Bill text={"Pay Bill"} amount={amount} payBill={payBill} card={card.cardNumber}/>:<Button disabled>Pay Bill</Button>}
+                    </Col>
+                    <Col>
+                        {transactions.length?<SmartStatements text={"Smart Statement"} transactions={transactions}/>:<Button disabled>Smart Statement</Button>}
                     </Col>
                 </Row>
             </Container>
