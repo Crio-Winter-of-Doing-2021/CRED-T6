@@ -1,37 +1,39 @@
-import React, { Component } from "react";
+import React, { useEffect, useState} from "react";
 import Chart from "react-apexcharts";
 
-class BarChart extends Component {
-  constructor(props) {
-    super(props);
+const BarChart = (props) => {
+  
+     const [category,setCategory] = useState(props.labels);
+     const [data,setData] = useState(props.data);
+     
+      
 
-    this.state = {
-      options: {
-        chart: {
-          id: "basic-bar"
-        },
-        xaxis: {
-          categories: this.props.labels
-        }
+      useEffect(()=>{
+        setCategory(props.labels)
+        setData(props.data)
       },
-      series: [
-        {
-          name: "Amount",
-          data: this.props.data
-        }
-      ]
-    };
-  }
+      [props.data])
 
-  render() {
     return (
       <div className="app">
         <div className="row">
           
           <div className="mixed-chart" style={{width:'100%'}}>
             <Chart
-              options={this.state.options}
-              series={this.state.series}
+              options={{
+                chart: {
+                  id: "basic-bar"
+                },
+                xaxis: {
+                  categories: category
+                }
+              }}
+              series={[
+                {
+                  name: "Amount",
+                  data: data
+                }
+              ]}
               type="bar"
               width="100%"
               height='auto'
@@ -40,7 +42,6 @@ class BarChart extends Component {
         </div>
       </div>
     );
-  }
 }
 
 export default BarChart;

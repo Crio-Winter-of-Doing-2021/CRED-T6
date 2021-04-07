@@ -35,8 +35,8 @@ const SmartStatements = (props) => {
     }, {});
  }
 
-  const groupTransaction = () => {
-    const res = groupBy(transactions,'type');
+  const groupTransaction = (t) => {
+    const res = groupBy(t,'type');
     //console.log(res);
     //delete res.Self;
     let res_f1 = Object.keys(res);
@@ -49,7 +49,7 @@ const SmartStatements = (props) => {
     //console.log(res_f2);
     setByTypeLabel(res_f1);
     setByTypeData(res_f2);
-    const res2 = groupBy(transactions,'vendor');
+    const res2 = groupBy(t,'vendor');
     
     let res_f3 = Object.keys(res2);
     res_f3 = res_f3.filter((i) => i !== 'Self');
@@ -60,11 +60,12 @@ const SmartStatements = (props) => {
 
     setByVendorLabel(res_f3);
     setByVendorData(res_f4);
+    //console.log(byVendorData);
   }
 
   useEffect(()=>{
     setTransactions(props.transactions);
-    groupTransaction();
+    groupTransaction(props.transactions);
 },[props.transactions])
 
 const monthChange = (event) => {
@@ -78,7 +79,9 @@ const filterTransaction = () => {
   //alert("/"+ month + "/" + year);
   if(month > 0 && year > 0) {
     const res = props.transactions.filter(item => item.date.includes("/"+ month + "/" + year));
+    console.log(res);
     setTransactions(res);
+    groupTransaction(res);
   }
   else {
     return ;
@@ -89,8 +92,8 @@ const onSubmit = (event) => {
   //console.log(event);
   event.preventDefault();
   filterTransaction();
-  
-  groupTransaction();
+  console.log(transactions);
+  //console.log(transactions);
 }
 
 
@@ -98,6 +101,8 @@ const reset = () => {
   setMonth(0);
   setYear(0);
   setTransactions(props.transactions);
+  groupTransaction(props.transactions);
+
 }
 
 
