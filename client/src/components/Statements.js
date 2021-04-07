@@ -55,13 +55,16 @@ const Statements = (props) =>{
                 
               </tbody>
             </Table>
-
+            
         </ModalBody>
-        <ModalFooter>
+        <ModalFooter style={{justifyContent:'left'}}>
         <ReactPaginate
         previousLabel={" < "}
         nextLabel={" > "}
+        breakLabel={"..."}
         pageCount={pageCount}
+        marginPagesDisplayed={1}
+        pageRangeDisplayed={1}
         onPageChange={changePage}
         containerClassName={"paginationBttns"}
         previousLinkClassName={"previousBttn"}
