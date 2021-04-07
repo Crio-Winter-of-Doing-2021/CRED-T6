@@ -118,7 +118,7 @@ const Rewards = (props) =>
               <h6 style={{paddingLeft:'20px'}}>You Won</h6> */}
               <h1 style={{textAlign: 'center'}}>{e} </h1>
               <h4 style={{textAlign: 'center'}}>Cred Coins!</h4>
-              <h6 style={{textAlign: 'center'}}>Earned for paying bill of {}</h6>
+              <h6 style={{textAlign: 'center'}}>Earned for paying bill</h6>
              </div></Col>))
         }
       
