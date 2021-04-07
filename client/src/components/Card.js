@@ -1,11 +1,13 @@
 import Statements from './Statements'
 import SmartStatements from './SmartStatements'
 import Bill from './Bill'
+//import PaginatedTable from './PaginatedTable'
 import { Container, Row, Col } from 'reactstrap';
 import { useState, useEffect } from 'react'
 import axios from 'axios';
 import Cards from 'react-credit-cards';
 import {Button} from 'reactstrap'
+
 const Card = ({ card, payBill }) => {
 
     const [transactions,setTransactions] = useState([]);

@@ -1,14 +1,26 @@
-import React, { useState} from 'react';
+import React, { useState } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Table } from 'reactstrap';
+import ReactPaginate from "react-paginate";
 
-const Statements = (props) => {
-
+const Statements = (props) =>{
+  const transactions = props.transactions;
+  const [pageNumber, setPageNumber] = useState(0);
   const [modal, setModal] = useState(false);
 
   const toggle = () => setModal(!modal);
-  
+  const transactionsPerPage = 10;
+  const pagesVisited = pageNumber * transactionsPerPage;
+
+
+  const pageCount = Math.ceil(transactions.length / transactionsPerPage);
+
+  const changePage = ({ selected }) => {
+    setPageNumber(selected);
+  };
+
   return (
     <div>
+        <div>
       <Button color="primary" onClick={toggle}><strong>{props.text}</strong></Button>
       <Modal isOpen={modal} toggle={toggle} fullscreen="lg" size="lg">
 
@@ -28,9 +40,11 @@ const Statements = (props) => {
                 </tr>
               </thead>
               <tbody>
-                {props.transactions.map((data, idx) => (
+                { transactions
+    .slice(pagesVisited, pagesVisited + transactionsPerPage)
+    .map((data, idx) => (
                     <tr key={idx}>
-                      <th scope="row">{idx+1}</th>
+                      <th scope="row">{pagesVisited+idx+1}</th>
                       <td>{data.date} </td>
                       <td>{data.vendor}</td>
                       <td style={ data.amount > 0 ? {color:"red"} : {color:"green"}}>{data.category} </td>
@@ -41,16 +55,26 @@ const Statements = (props) => {
                 
               </tbody>
             </Table>
-            <strong>Net Amount: {props.amount}</strong>
-          
+
         </ModalBody>
         <ModalFooter>
-          <Button  color="secondary" onClick={toggle}>Ok</Button>
+        <ReactPaginate
+        previousLabel={" < "}
+        nextLabel={" > "}
+        pageCount={pageCount}
+        onPageChange={changePage}
+        containerClassName={"paginationBttns"}
+        previousLinkClassName={"previousBttn"}
+        nextLinkClassName={"nextBttn"}
+        disabledClassName={"paginationDisabled"}
+        activeClassName={"paginationActive"}
+      />
         </ModalFooter>
       </Modal>
     </div>
+      
+    </div>
   );
 }
-
 
 export default Statements;
