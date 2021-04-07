@@ -35,7 +35,7 @@ const SmartStatements = (props) => {
 
   useEffect(()=>{
     const res = groupBy(props.transactions,'type');
-    console.log(res);
+    //console.log(res);
     //delete res.Self;
     let res_f1 = Object.keys(res);
     res_f1 = res_f1.filter((i) => i !== 'Bill payment');
@@ -43,8 +43,8 @@ const SmartStatements = (props) => {
     let res_f2 = Object.values(res);
     res_f2 = res_f2.filter((i) => i > 0);
     
-    console.log(res_f1);
-    console.log(res_f2);
+    //console.log(res_f1);
+    //console.log(res_f2);
     setByTypeLabel(res_f1);
     setByTypeData(res_f2);
     const res2 = groupBy(props.transactions,'vendor');

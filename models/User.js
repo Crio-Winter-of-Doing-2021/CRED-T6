@@ -14,6 +14,16 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    rewards:{
+        type:[]
+    },
+    unclaimedRewards:{
+        type:[]
+    },
+    credCoins:{
+        type:Number,
+        default:0
+    }
 
 })
 

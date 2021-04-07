@@ -4,6 +4,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Form, FormGroup, Label, Input, FormText } from 'reactstrap'
 import swal from 'sweetalert';
 
+
 const Bill = (props) => {
 
   const [modal, setModal] = useState(false);
@@ -11,6 +12,7 @@ const Bill = (props) => {
 
   const toggle = () => setModal(!modal);
   
+
   function formatDate(date, format) {
     const map = {
         mm: date.getMonth() + 1,
@@ -48,11 +50,13 @@ const Bill = (props) => {
 
         const res = await axios.post('/transactions/pay',body, config);
         //localStorage.setItem('token', res.data.token);
-        console.log(res.data);
+        //console.log(res.data);
         //setAuthenticated(true);
-
+         const res2 = await axios.put('/rewards');
+         console.log(res2);
         swal({
           title: "Bill Paid!",
+          text: "Scratch Card Earned!!",
           icon: "success",
         });
 
@@ -91,7 +95,6 @@ const Bill = (props) => {
                   <Button>Pay</Button>
               </Form>
             }
-
         </ModalBody>
         <ModalFooter>
           <Button color="secondary" onClick={toggle}>Cancel</Button>
