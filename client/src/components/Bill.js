@@ -56,7 +56,7 @@ const Bill = (props) => {
          console.log(res2);
         swal({
           title: "Bill Paid!",
-          text: "Scratch Card Earned!!",
+          text: "Congratulations! You have earned a Scratch Card!!",
           icon: "success",
         });
 

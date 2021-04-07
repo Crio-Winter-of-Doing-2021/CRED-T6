@@ -1,11 +1,10 @@
 import React, { useState,useEffect} from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Table } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import BarChart from './BarChart';
 import DonutChart from './DonutChart';
-import { TabContent, TabPane, Nav, NavItem, NavLink,  Row, Col } from 'reactstrap';
+import { TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
+import { Form, Input, FormGroup, Label, Row, Col } from 'reactstrap';
 import classnames from 'classnames';
-
-
 
 const SmartStatements = (props) => {
 
@@ -15,6 +14,10 @@ const SmartStatements = (props) => {
   const [byTypeData, setByTypeData] = useState([]);
   const [byVendorData,setByVendorData] = useState([]);
   const [activeTab, setActiveTab] = useState('1');
+  const [month, setMonth] = useState(0);
+  const [year, setYear] = useState(0);
+  const [transactions, setTransactions] = useState(props.transactions);
+
   const toggle = () => setModal(!modal);
   const toggle2 = tab => {
     if(activeTab !== tab) setActiveTab(tab);
@@ -32,9 +35,8 @@ const SmartStatements = (props) => {
     }, {});
  }
 
-
-  useEffect(()=>{
-    const res = groupBy(props.transactions,'type');
+  const groupTransaction = () => {
+    const res = groupBy(transactions,'type');
     //console.log(res);
     //delete res.Self;
     let res_f1 = Object.keys(res);
@@ -47,7 +49,7 @@ const SmartStatements = (props) => {
     //console.log(res_f2);
     setByTypeLabel(res_f1);
     setByTypeData(res_f2);
-    const res2 = groupBy(props.transactions,'vendor');
+    const res2 = groupBy(transactions,'vendor');
     
     let res_f3 = Object.keys(res2);
     res_f3 = res_f3.filter((i) => i !== 'Self');
@@ -58,7 +60,47 @@ const SmartStatements = (props) => {
 
     setByVendorLabel(res_f3);
     setByVendorData(res_f4);
+  }
+
+  useEffect(()=>{
+    setTransactions(props.transactions);
+    groupTransaction();
 },[props.transactions])
+
+const monthChange = (event) => {
+  setMonth(event.target.value);
+}
+
+const yearChange = (event) => {
+  setYear(event.target.value);
+}
+const filterTransaction = () => {
+  //alert("/"+ month + "/" + year);
+  if(month > 0 && year > 0) {
+    const res = props.transactions.filter(item => item.date.includes("/"+ month + "/" + year));
+    setTransactions(res);
+  }
+  else {
+    return ;
+  } 
+}
+
+const onSubmit = (event) => {
+  //console.log(event);
+  event.preventDefault();
+  filterTransaction();
+  
+  groupTransaction();
+}
+
+
+const reset = () => {
+  setMonth(0);
+  setYear(0);
+  setTransactions(props.transactions);
+}
+
+
   return (
     <div>
       <Button color="primary" onClick={toggle}><strong>{props.text}</strong></Button>
@@ -66,7 +108,49 @@ const SmartStatements = (props) => {
 
         <ModalHeader toggle={toggle}>Smart Transactions</ModalHeader>
         <ModalBody>
-          
+        <Label> Select Month and Year: </Label>
+        <Row>
+        <Form onSubmit={onSubmit} inline>        
+        <Col>
+        <FormGroup>
+          <Input type="select" value={month} onChange={monthChange}>
+            <option value="0">Month</option>
+            <option value="1">Jan</option>
+            <option value="2">Feb</option>
+            <option value="3">Mar</option>
+            <option value="4">April</option>
+            <option value="5">May</option>
+            <option value="6">June</option>
+            <option value="7">Jul</option>
+            <option value="8">Aug</option>
+            <option value="9">Sep</option>
+            <option value="10">Oct</option>
+            <option value="11">Nov</option>
+            <option value="12">Dec</option>
+          </Input>
+        </FormGroup>
+        </Col>
+        <Col>
+        <FormGroup>
+          <Input type="select" value={year} onChange={yearChange}>
+            <option value="0">Year</option>
+            <option value="17">2017</option>
+            <option value="18">2018</option>
+            <option value="19">2019</option>
+            <option value="20">2020</option>
+            <option value="21">2021</option>
+          </Input>
+        </FormGroup>
+        </Col>
+        <Col>
+        <input type="submit" value="Submit" />
+        </Col>
+        <Col>
+      <button onClick={reset} value="Reset">Reset</button>
+      </Col>
+      </Form>    
+      </Row>
+
         <div>
       <Nav tabs>
         <NavItem>

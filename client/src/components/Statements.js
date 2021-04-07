@@ -1,19 +1,17 @@
-import React, { useState } from "react";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Table } from 'reactstrap';
+import React, { useState,useEffect } from "react";
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Table, FormGroup } from 'reactstrap';
+import { Form, Input, Label, Row, Col } from 'reactstrap';
 import ReactPaginate from "react-paginate";
 
 const Statements = (props) =>{
 
-  const currMonth = 4;
-  const currYear = 21;
- 
-  const t = props.transactions;
+  //const t = props.transactions;
 
   const [transactions, setTransactions] = useState(props.transactions);
   const [pageNumber, setPageNumber] = useState(0);
   const [modal, setModal] = useState(false);
-  const [month, setMonth] = useState(currMonth);
-  const [year, setYear] = useState(currYear);
+  const [month, setMonth] = useState(0);
+  const [year, setYear] = useState(0);
 
   //setTransactions([...t,]);
 
@@ -35,31 +33,53 @@ const Statements = (props) =>{
   const yearChange = (event) => {
     setYear(event.target.value);
   }
-
+  const filterTransaction = () => {
+    //alert("/"+ month + "/" + year);
+    if(month > 0 && year > 0) {
+      const res = props.transactions.filter(item => item.date.includes("/"+ month + "/" + year));
+      setTransactions(res);
+    }
+    else {
+      return ;
+    }
+    
+  }
   const onSubmit = (event) => {
     //console.log(event);
     //filterTransaction();
     event.preventDefault();
+    filterTransaction();
   }
 
-  const filterTransaction = () => {
-    alert("/"+ month + "/" + year);
-    setTransactions( props.transactions.filter(item => item.date.includes("/"+ month + "/" + year)));
+  useEffect(() => {
+    console.log(transactions);
+    setTransactions(props.transactions);
+    console.log(transactions);
+  }, [props.transactions])
+
+  const reset = () => {
+    setMonth(0);
+    setYear(0);
+    setTransactions(props.transactions);
   }
-  console.log(transactions);
+
+  //console.log(transactions);
   return (
     <div>
-        <div>
+        
       <Button color="primary" onClick={toggle}><strong>{props.text}</strong></Button>
       <Modal isOpen={modal} toggle={toggle} fullscreen="lg" size="lg">
 
         <ModalHeader toggle={toggle}>Transactions</ModalHeader>
         <ModalBody>
 
-        <form onSubmit={onSubmit}>
-        <label>
-          Select Month and Year:
-          <select value={month} onChange={monthChange}>
+        <Label> Select Month and Year: </Label>
+        <Row>
+        <Form onSubmit={onSubmit} inline>        
+        <Col>
+        <FormGroup>
+          <Input type="select" value={month} onChange={monthChange}>
+            <option value="0">Month</option>
             <option value="1">Jan</option>
             <option value="2">Feb</option>
             <option value="3">Mar</option>
@@ -72,19 +92,29 @@ const Statements = (props) =>{
             <option value="10">Oct</option>
             <option value="11">Nov</option>
             <option value="12">Dec</option>
-          </select>
-          <select value={year} onChange={yearChange}>
+          </Input>
+        </FormGroup>
+        </Col>
+        <Col>
+        <FormGroup>
+          <Input type="select" value={year} onChange={yearChange}>
+            <option value="0">Year</option>
             <option value="17">2017</option>
             <option value="18">2018</option>
             <option value="19">2019</option>
             <option value="20">2020</option>
             <option value="21">2021</option>
-          </select>
-        </label>
+          </Input>
+        </FormGroup>
+        </Col>
+        <Col>
         <input type="submit" value="Submit" />
-      </form>
-
-          
+        </Col>
+        <Col>
+      <button onClick={reset} value="Reset">Reset</button>
+      </Col>
+      </Form>    
+      </Row>
             <Table responsive striped>
               <thead>
                 <tr>
@@ -97,8 +127,7 @@ const Statements = (props) =>{
                 </tr>
               </thead>
               <tbody>
-                { transactions.filter(item => item.date.includes("/"+ month + "/" + year))
-    .slice(pagesVisited, pagesVisited + transactionsPerPage)
+                { transactions.slice(pagesVisited, pagesVisited + transactionsPerPage)
     .map((data, idx) => (
                     <tr key={idx}>
                       <th scope="row">{pagesVisited+idx+1}</th>
@@ -133,7 +162,6 @@ const Statements = (props) =>{
       </Modal>
     </div>
       
-    </div>
   );
 }
 

@@ -10,9 +10,10 @@ import { Container, Row, Col } from 'reactstrap';
 
  
 
-const Rewards = () =>
+const Rewards = (props) =>
  {
   const [loading, setLoading] = useState(true);
+  const cardNo = props.cardNo;
   //const [user,setUser] = useState({});
   
   const [credCoins,setCredCoins] = useState(0);
@@ -20,16 +21,18 @@ const Rewards = () =>
   const [unclaimed,setUnclaimed] = useState([]);
  
   const [modal, setModal] = useState(false);
-  const [value,setValue] = useState(0);
+  const [value,setValue] = useState('?');
   const toggle = () => setModal(!modal);
+
   const settings = {
-    width: 150,
-    height: 150,
-    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfGmACn3ZR9FtJ-qFahvRr9--vgMLD0V7kkQ&usqp=CAU',
-    finishPercent: 60,
+    width: 200,
+    height: 250,
+    image: 'https://image.shutterstock.com/image-illustration/abstract-blue-background-vignette-black-260nw-138651581.jpg',
+    backgroundColor: "black",
+    finishPercent: 70,
     onComplete: async () => {
       const curr = Math.floor(Math.random() * 100 + 1);
-      setValue(curr);
+      setValue(parseInt(curr));
       try{
         const config = {
             headers:{
@@ -87,19 +90,20 @@ const Rewards = () =>
   return(
     <div>
       <Button color="danger" onClick={toggle}>My Rewards</Button>
-      <Modal isOpen={modal} toggle={toggle}>
+      <Modal isOpen={modal} toggle={toggle} scrollable={true} style={{maxHeight:'80vh'}} size="lg">
         <ModalHeader toggle={toggle}><h2>Cred Coins: {credCoins}</h2></ModalHeader>
-        <ModalBody style={{paddingRight:'2rem'}}>
+        <ModalBody>
         <Container>
           <Row>
         
         {loading?<div><Spinner color="warning" /></div>:
         unclaimed.map(()=>(<Col xs="6" sm="4"><div className="reward" 
-        style={{height:'150px',
-        width:'150px',marginBottom:'15px'}}><ScratchCard {...settings}>
+        style={{height:'250px',
+        width:'200px',marginBottom:'15px'}}><ScratchCard {...settings}>
               <h6 style={{paddingLeft:'20px'}}>Congratulations!</h6> 
               <h6 style={{paddingLeft:'20px'}}>You Won</h6>
-              <h1 style={{paddingLeft:'20px'}}>{value} Cred Coins!</h1>
+              <h1 style={{textAlign: 'center'}}>{value} </h1>
+              <h4 style={{textAlign: 'center'}}>Cred Coins!</h4>
              </ScratchCard></div></Col>))
         }
         
@@ -107,12 +111,14 @@ const Rewards = () =>
         <h3>Claimed Rewards:</h3>
         <Row>
         {loading?<div><Spinner color="warning" /></div>:
-        rewards.map((e)=>(<Col xs="6" sm="4"><div className="reward" 
-        style={{height:'150px',
-        width:'150px',marginBottom:'15px'}}>
-              <h6 style={{paddingLeft:'20px'}}>Congratulations!</h6> 
-              <h6 style={{paddingLeft:'20px'}}>You Won</h6>
-              <h1 style={{paddingLeft:'20px'}}>{e} Cred Coins!</h1>
+        rewards.map((e)=>(<Col xs="12" sm="6" lg="4"><div className="reward" 
+        style={{height:'250px',
+        width:'200px',marginBottom:'15px', paddingTop:'60px'}}>
+              {/* <h6 style={{paddingLeft:'20px'}}>Congratulations!</h6> 
+              <h6 style={{paddingLeft:'20px'}}>You Won</h6> */}
+              <h1 style={{textAlign: 'center'}}>{e} </h1>
+              <h4 style={{textAlign: 'center'}}>Cred Coins!</h4>
+              <h6 style={{textAlign: 'center'}}>Earned for paying bill of {}</h6>
              </div></Col>))
         }
       
