@@ -87,7 +87,7 @@ const Rewards = () =>
   return(
     <div>
       <Button color="danger" onClick={toggle}>My Rewards</Button>
-      <Modal isOpen={modal} toggle={toggle}>
+      <Modal isOpen={modal} toggle={toggle} scrollable={true} style={{maxHeight:'90vh'}}>
         <ModalHeader toggle={toggle}><h2>Cred Coins: {credCoins}</h2></ModalHeader>
         <ModalBody style={{paddingRight:'2rem'}}>
         <Container>

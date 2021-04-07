@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Table } from 'reactstrap';
 import ReactPaginate from "react-paginate";
 
@@ -7,7 +7,7 @@ const Statements = (props) =>{
   const currMonth = 4;
   const currYear = 21;
  
-  const t = props.transactions;
+  //const t = props.transactions;
 
   const [transactions, setTransactions] = useState(props.transactions);
   const [pageNumber, setPageNumber] = useState(0);
@@ -35,18 +35,25 @@ const Statements = (props) =>{
   const yearChange = (event) => {
     setYear(event.target.value);
   }
-
+  const filterTransaction = () => {
+    //alert("/"+ month + "/" + year);
+    const res = props.transactions.filter(item => item.date.includes("/"+ month + "/" + year));
+    setTransactions(res);
+    console.log(res);
+  }
   const onSubmit = (event) => {
     //console.log(event);
     //filterTransaction();
     event.preventDefault();
+    filterTransaction();
   }
 
-  const filterTransaction = () => {
-    alert("/"+ month + "/" + year);
-    setTransactions( props.transactions.filter(item => item.date.includes("/"+ month + "/" + year)));
-  }
-  console.log(transactions);
+  useEffect(() => {
+    console.log(transactions);
+    setTransactions(props.transactions);
+    console.log(transactions);
+  }, [props.transactions])
+  //console.log(transactions);
   return (
     <div>
         <div>
@@ -97,8 +104,7 @@ const Statements = (props) =>{
                 </tr>
               </thead>
               <tbody>
-                { transactions.filter(item => item.date.includes("/"+ month + "/" + year))
-    .slice(pagesVisited, pagesVisited + transactionsPerPage)
+                { transactions.slice(pagesVisited, pagesVisited + transactionsPerPage)
     .map((data, idx) => (
                     <tr key={idx}>
                       <th scope="row">{pagesVisited+idx+1}</th>
