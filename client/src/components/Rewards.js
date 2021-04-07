@@ -1,135 +1,129 @@
-import React from 'react';
-import { render } from 'react-dom';
-//import './styles.scss';
+import React, {useState, useEffect} from 'react';
+import ScratchCard from 'react-scratchcard';
+import { Spinner } from 'reactstrap';
+import axios from 'axios';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
-// https://github.com/andreruffert/scratchie
-// https://codepen.io/Totati/pen/pPXrJV
+import swal from 'sweetalert';
 
-const noop = o => o;
+import { Container, Row, Col } from 'reactstrap';
 
-class ScratchOff extends React.PureComponent {
+ 
+
+const Rewards = () =>
+ {
+  const [loading, setLoading] = useState(true);
+  //const [user,setUser] = useState({});
   
-  static defaultProps = {
-    // brush: null,
-    // cover: null,
-    // threshold
-    onReveal: noop
-  }
+  const [credCoins,setCredCoins] = useState(0);
+  const [rewards,setRewards] = useState([]);
+  const [unclaimed,setUnclaimed] = useState([]);
+ 
+  const [modal, setModal] = useState(false);
+  const [value,setValue] = useState(0);
+  const toggle = () => setModal(!modal);
+  const settings = {
+    width: 150,
+    height: 150,
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfGmACn3ZR9FtJ-qFahvRr9--vgMLD0V7kkQ&usqp=CAU',
+    finishPercent: 60,
+    onComplete: async () => {
+      const curr = Math.floor(Math.random() * 100 + 1);
+      setValue(curr);
+      try{
+        const config = {
+            headers:{
+                'Content-Type': 'application/json'
+            }
+        };
 
-  constructor(props) {
-    super(props);
-    this.isDrawing = false;
-    this.lastPoint = null;
-    this.touchStart = this.touchStart.bind(this);
-    this.touchMove = this.touchMove.bind(this);
-    this.touchEnd = this.touchEnd.bind(this);
-  }
+        const body = JSON.stringify({amount:curr});
 
-  componentDidMount() {    
-    
-    const canvas = this.canvas;
-    canvas.width = canvas.parentElement.offsetWidth;
-    canvas.height = canvas.parentElement.offsetHeight;
+        const res = await axios.put('/rewards/claim',body, config);
+        //localStorage.setItem('token', res.data.token);
+        console.log(res.data);
+        //setAuthenticated(true);
+        setTimeout(() => swal({
+          title: "Reward Claimed!",
+          icon: "success",
+        }),300);
+        
 
-    canvas.addEventListener('mousedown', this.touchStart);
-    canvas.addEventListener('touchstart', this.touchStart);
-    canvas.addEventListener('mousemove', this.touchMove);
-    canvas.addEventListener('touchmove', this.touchMove);
-    canvas.addEventListener('mouseup', this.touchEnd);
-    canvas.addEventListener('touchend', this.touchEnd);
-    
-    this.ctx = canvas.getContext('2d');
-    
-    this.brush = new Image();
-    this.brush.src = require('../img/brush.png');
+        setTimeout(() => window.location.reload(false),1000);
 
-    this.cover = new Image();
-    this.cover.src = require('../img/logo.jpg');
-    this.cover.onload = () => this.ctx.drawImage(this.cover, 0, 0, canvas.width, canvas.height);
-  }
-
-  componentWillUnmount() {
-    const canvas = this.canvas;
-    canvas.removeEventListener('mousedown', this.touchStart);
-    canvas.removeEventListener('touchstart', this.touchStart);
-    canvas.removeEventListener('mousemove', this.touchMove);
-    canvas.removeEventListener('touchmove', this.touchMove);
-    canvas.removeEventListener('mouseup', this.touchEnd);
-    canvas.removeEventListener('touchend', this.touchEnd);
-  }
-
-  getPosition(event) {
-    
-    let target = this.canvas;
-    let offsetX = 0;
-    let offsetY = 0;
-    
-    if (target.offsetParent !== undefined) {
-      while (target = target.offsetParent) {
-        offsetX += target.offsetLeft;
-        offsetY += target.offsetTop;
-      }
     }
-
-    const x = (event.pageX || event.touches[0].clientX) - offsetX;
-    const y = (event.pageY || event.touches[0].clientY) - offsetY;
-    return {x, y};
-  }
-
-  touchStart(event) {
-    this.isDrawing = true;
-    this.lastPoint = this.getPosition(event);
-    this.ctx.globalCompositeOperation = 'destination-out';
-  }
-
-  touchMove(event) {
-
-    if (!this.isDrawing) return;
-    event.preventDefault();
-
-    const ctx = this.ctx;    
-    const a = this.lastPoint;
-    const b = this.getPosition(event);
-    const dist = Math.sqrt(Math.pow(b.x - a.x, 2) + Math.pow(b.y - a.y, 2));
-    const angle = Math.atan2(b.x - a.x, b.y - a.y);
-    const offsetX = this.brush.width / 2;
-    const offsetY = this.brush.height / 2;
-    
-    for (let x, y, i = 0; i < dist; i++) {
-      x = a.x + (Math.sin(angle) * i) - offsetX;
-      y = a.y + (Math.cos(angle) * i) - offsetY;
-      ctx.drawImage(this.brush, x, y);
+    catch(err){
+        console.error(err.response.data);
     }
+      
+    }
+  };
+  const getUser = async () =>{
+    try{
+      axios.defaults.headers.common['x-auth-token'] = localStorage.token;
+      const res = await axios.get('/auth');
+      console.log(res);
+      setCredCoins(res.data.credCoins);
+      setUnclaimed(res.data.unclaimedRewards);
+      setRewards(res.data.rewards);
 
-    this.lastPoint = b;
+      return;
   }
-
-  touchEnd(event) {
-    this.isDrawing = false;
+  catch(err){
+      console.log(err);
+      //setAuthenticated(false);
+      return;
   }
-
-  render() {
-    return (
-      <div style={{position:'relative',width:285,height:70}}>
-        <canvas style={{position:'absolute',zIndex:2,width:'100%',height:'100%'}} ref={el => this.canvas = el} />
-        <div className="secret absolute fill no-select flex justify-center items-center">
-          {this.props.children}
-        </div>
-      </div>
-    );
   }
-}
+ 
+ 
+  useEffect(()=>{
+   getUser();
+   //console.log(rewards);
+   setLoading(false);
+ },[])
 
-const secret = Math.random().toString(16).slice(2, 7).toUpperCase();
 
-const Example = () => {
-    return (
-        <ScratchOff>{secret}</ScratchOff>
-    )
-}
-
-export default Example;
-
-// const root = document.createElement('div');
-// document.body.appendChild(root);
-// render(<ScratchOff>{secret}</ScratchOff>, root);
+  return(
+    <div>
+      <Button color="danger" onClick={toggle}>My Rewards</Button>
+      <Modal isOpen={modal} toggle={toggle}>
+        <ModalHeader toggle={toggle}><h2>Cred Coins: {credCoins}</h2></ModalHeader>
+        <ModalBody style={{paddingRight:'2rem'}}>
+        <Container>
+          <Row>
+        
+        {loading?<div><Spinner color="warning" /></div>:
+        unclaimed.map(()=>(<Col xs="6" sm="4"><div className="reward" 
+        style={{height:'150px',
+        width:'150px',marginBottom:'15px'}}><ScratchCard {...settings}>
+              <h6 style={{paddingLeft:'20px'}}>Congratulations!</h6> 
+              <h6 style={{paddingLeft:'20px'}}>You Won</h6>
+              <h1 style={{paddingLeft:'20px'}}>{value} Cred Coins!</h1>
+             </ScratchCard></div></Col>))
+        }
+        
+        </Row>
+        <h3>Claimed Rewards:</h3>
+        <Row>
+        {loading?<div><Spinner color="warning" /></div>:
+        rewards.map((e)=>(<Col xs="6" sm="4"><div className="reward" 
+        style={{height:'150px',
+        width:'150px',marginBottom:'15px'}}>
+              <h6 style={{paddingLeft:'20px'}}>Congratulations!</h6> 
+              <h6 style={{paddingLeft:'20px'}}>You Won</h6>
+              <h1 style={{paddingLeft:'20px'}}>{e} Cred Coins!</h1>
+             </div></Col>))
+        }
+      
+        </Row>
+        </Container>
+        </ModalBody>
+        <ModalFooter>
+          <Button color="secondary" onClick={toggle}>Cancel</Button>
+        </ModalFooter>
+      </Modal>
+  </div>
+  )
+ }
+export default Rewards;

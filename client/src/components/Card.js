@@ -18,7 +18,7 @@ const Card = ({ card, payBill }) => {
         try{
             const res = await axios.get(`/transactions/${card.cardNumber}`);
             //setData(res.data)
-            console.log(res);
+            //console.log(res);
             setTransactions(res.data);
             let x = 0;
             
@@ -39,7 +39,7 @@ const Card = ({ card, payBill }) => {
     useEffect(()=>{
         //();
         getTransactions();
-        console.log(amount);
+        //console.log(amount);
         //getAmount();
     },[])  
       

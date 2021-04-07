@@ -12,6 +12,7 @@ app.get('/', (req,res)=>res.send('API Running'));
 app.use('/users', require('./routes/users'));
 app.use('/cards', require('./routes/cards'));
 app.use('/auth', require('./routes/auth'));
+app.use('/rewards', require('./routes/rewards'));
 app.use('/transactions', require('./routes/transactions'));
 
 

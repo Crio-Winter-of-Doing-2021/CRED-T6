@@ -16,6 +16,7 @@ import {
   Nav,
   NavItem,
 } from 'reactstrap';
+import Rewards from './Rewards'
 const MyCred = () => {
   
   //const name = "User 1";
@@ -129,6 +130,9 @@ const MyCred = () => {
             setAuthenticated(false);
           }}
       />
+            </NavItem>
+            <NavItem>
+              <Rewards/>
             </NavItem>
           </Nav>
           </Collapse>
