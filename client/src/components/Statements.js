@@ -3,14 +3,24 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Table } from 'react
 import ReactPaginate from "react-paginate";
 
 const Statements = (props) =>{
-  const transactions = props.transactions;
+
+  const currMonth = 4;
+  const currYear = 21;
+ 
+  const t = props.transactions;
+
+  const [transactions, setTransactions] = useState(props.transactions);
   const [pageNumber, setPageNumber] = useState(0);
   const [modal, setModal] = useState(false);
+  const [month, setMonth] = useState(currMonth);
+  const [year, setYear] = useState(currYear);
+
+  //setTransactions([...t,]);
 
   const toggle = () => setModal(!modal);
+
   const transactionsPerPage = 10;
   const pagesVisited = pageNumber * transactionsPerPage;
-
 
   const pageCount = Math.ceil(transactions.length / transactionsPerPage);
 
@@ -18,6 +28,25 @@ const Statements = (props) =>{
     setPageNumber(selected);
   };
 
+  const monthChange = (event) => {
+    setMonth(event.target.value);
+  }
+
+  const yearChange = (event) => {
+    setYear(event.target.value);
+  }
+
+  const onSubmit = (event) => {
+    //console.log(event);
+    //filterTransaction();
+    event.preventDefault();
+  }
+
+  const filterTransaction = () => {
+    alert("/"+ month + "/" + year);
+    setTransactions( props.transactions.filter(item => item.date.includes("/"+ month + "/" + year)));
+  }
+  console.log(transactions);
   return (
     <div>
         <div>
@@ -26,6 +55,35 @@ const Statements = (props) =>{
 
         <ModalHeader toggle={toggle}>Transactions</ModalHeader>
         <ModalBody>
+
+        <form onSubmit={onSubmit}>
+        <label>
+          Select Month and Year:
+          <select value={month} onChange={monthChange}>
+            <option value="1">Jan</option>
+            <option value="2">Feb</option>
+            <option value="3">Mar</option>
+            <option value="4">April</option>
+            <option value="5">May</option>
+            <option value="6">June</option>
+            <option value="7">Jul</option>
+            <option value="8">Aug</option>
+            <option value="9">Sep</option>
+            <option value="10">Oct</option>
+            <option value="11">Nov</option>
+            <option value="12">Dec</option>
+          </select>
+          <select value={year} onChange={yearChange}>
+            <option value="17">2017</option>
+            <option value="18">2018</option>
+            <option value="19">2019</option>
+            <option value="20">2020</option>
+            <option value="21">2021</option>
+          </select>
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
+
           
             <Table responsive striped>
               <thead>
@@ -36,11 +94,10 @@ const Statements = (props) =>{
                   <th>{"Category"}</th>
                   <th>{"Type"}</th>
                   <th>{"Amount"}</th>
-                  
                 </tr>
               </thead>
               <tbody>
-                { transactions
+                { transactions.filter(item => item.date.includes("/"+ month + "/" + year))
     .slice(pagesVisited, pagesVisited + transactionsPerPage)
     .map((data, idx) => (
                     <tr key={idx}>
