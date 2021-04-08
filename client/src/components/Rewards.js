@@ -28,8 +28,7 @@ const Rewards = (props) =>
     width: 200,
     height: 250,
     image: 'https://image.shutterstock.com/image-illustration/abstract-blue-background-vignette-black-260nw-138651581.jpg',
-    backgroundColor: "black",
-    finishPercent: 70,
+    finishPercent: 60,
     onComplete: async () => {
       const curr = Math.floor(Math.random() * 100 + 1);
       setValue(parseInt(curr));
@@ -100,16 +99,20 @@ const Rewards = (props) =>
         unclaimed.map(()=>(<Col xs="6" sm="4"><div className="reward" 
         style={{height:'250px',
         width:'200px',marginBottom:'15px'}}><ScratchCard {...settings}>
-              <h6 style={{paddingLeft:'20px'}}>Congratulations!</h6> 
-              <h6 style={{paddingLeft:'20px'}}>You Won</h6>
+          <div style={{paddingTop:'50px'}} >
+              <h6 style={{textAlign: 'center'}}>Congratulations!</h6> 
+              <h6 style={{textAlign: 'center'}}>You Won</h6>
               <h1 style={{textAlign: 'center'}}>{value} </h1>
               <h4 style={{textAlign: 'center'}}>Cred Coins!</h4>
+              </div>
              </ScratchCard></div></Col>))
         }
         
         </Row>
         <h3>Claimed Rewards:</h3>
+        
         <Row>
+          
         {loading?<div><Spinner color="warning" /></div>:
         rewards.map((e)=>(<Col xs="12" sm="6" lg="4"><div className="reward" 
         style={{height:'250px',
@@ -121,8 +124,8 @@ const Rewards = (props) =>
               <h6 style={{textAlign: 'center'}}>Earned for paying bill</h6>
              </div></Col>))
         }
-      
         </Row>
+     
         </Container>
         </ModalBody>
         <ModalFooter>
