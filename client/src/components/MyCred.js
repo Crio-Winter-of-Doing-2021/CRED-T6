@@ -17,6 +17,8 @@ import {
   NavItem,
 } from 'reactstrap';
 import Rewards from './Rewards'
+import Coupons from './Coupons'
+
 const MyCred = () => {
   
   //const name = "User 1";
@@ -133,6 +135,9 @@ const MyCred = () => {
             </NavItem>
             <NavItem>
               <Rewards/>
+            </NavItem>
+            <NavItem>
+              <Coupons />
             </NavItem>
           </Nav>
           </Collapse>

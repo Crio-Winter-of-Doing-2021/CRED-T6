@@ -13,7 +13,7 @@ import { Container, Row, Col } from 'reactstrap';
 const Rewards = (props) =>
  {
   const [loading, setLoading] = useState(true);
-  const cardNo = props.cardNo;
+  //const cardNo = props.cardNo;
   //const [user,setUser] = useState({});
   
   const [credCoins,setCredCoins] = useState(0);
