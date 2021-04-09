@@ -115,6 +115,7 @@ const Statements = (props) =>{
       </Col>
       </Form>    
       </Row>
+      <br />
             <Table responsive striped>
               <thead>
                 <tr>

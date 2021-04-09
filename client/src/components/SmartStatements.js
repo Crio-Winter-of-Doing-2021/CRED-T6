@@ -155,7 +155,7 @@ const reset = () => {
       </Col>
       </Form>    
       </Row>
-
+<br/>
         <div>
       <Nav tabs>
         <NavItem>
