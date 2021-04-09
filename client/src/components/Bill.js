@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Form, FormGroup, Label, Input, FormText } from 'reactstrap'
 import swal from 'sweetalert';
@@ -39,6 +39,7 @@ const Bill = (props) => {
       const payment = {card:props.card, amount:amount*(-1),vendor:"Self",type:"Bill payment",category:"Credit",date:formatDate(today,'dd/mm/yy')}
       console.log(payment);
       //return;
+
     try{
         const config = {
             headers:{
