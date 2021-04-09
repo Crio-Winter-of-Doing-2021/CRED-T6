@@ -23,6 +23,9 @@ const UserSchema = new mongoose.Schema({
     credCoins:{
         type:Number,
         default:0
+    },
+    coupons:{
+        type:[]
     }
 
 })

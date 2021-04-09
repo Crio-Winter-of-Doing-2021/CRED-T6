@@ -14,6 +14,7 @@ app.use('/cards', require('./routes/cards'));
 app.use('/auth', require('./routes/auth'));
 app.use('/rewards', require('./routes/rewards'));
 app.use('/transactions', require('./routes/transactions'));
+app.use('/coupons', require('./routes/coupons'));
 
 
 const PORT = process.env.PORT || 5000;
