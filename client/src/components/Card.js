@@ -8,7 +8,7 @@ import axios from 'axios';
 import Cards from 'react-credit-cards';
 import {Button} from 'reactstrap'
 
-const Card = ({ card, payBill }) => {
+const Card = ({ card, payBill ,user, getUser}) => {
 
     const [transactions,setTransactions] = useState([]);
     const [amount, setAmount] = useState(0);
@@ -39,7 +39,7 @@ const Card = ({ card, payBill }) => {
     useEffect(()=>{
         //();
         getTransactions();
-        //console.log(amount);
+        console.log(amount);
         //getAmount();
     },[])  
       
@@ -73,7 +73,7 @@ const Card = ({ card, payBill }) => {
                         <Statements text={"View Statement"} transactions={transactions} amount={amount}/> 
                     </Col>
                     <Col>
-                        {amount?<Bill text={"Pay Bill"} amount={amount} payBill={payBill} card={card.cardNumber} getTransactions={getTransactions}/>:<Button disabled>Pay Bill</Button>}
+                        {amount?<Bill text={"Pay Bill"} amount={amount} payBill={payBill} card={card.cardNumber} getTransactions={getTransactions} user={user} getUser={getUser}/>:<Button disabled>Pay Bill</Button>}
                     </Col>
                     <Col>
                         {transactions.length?<SmartStatements text={"Smart Statement"} transactions={transactions}/>:<Button disabled>Smart Statement</Button>}

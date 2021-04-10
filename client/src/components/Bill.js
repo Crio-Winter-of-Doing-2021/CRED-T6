@@ -61,6 +61,8 @@ const Bill = (props) => {
           icon: "success",
         });
         props.getTransactions();
+        props.getUser();
+        setAmount('');
         //setTimeout(() => window.location.reload(false),1000);
 
     }

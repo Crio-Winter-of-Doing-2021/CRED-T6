@@ -22,7 +22,14 @@ import Coupons from './Coupons'
 const MyCred = () => {
   
   //const name = "User 1";
-  const [user,setUser] = useState('');
+  const [user,setUser] = useState({
+    coupons: [],
+credCoins: -100,
+email: "",
+name: "",
+rewards: [],
+unclaimedRewards: [],
+  });
   const [data,setData] = useState([]);
  
   const [modal, setModal] = useState(false);
@@ -52,8 +59,8 @@ const MyCred = () => {
 
         try{
             const res = await axios.get('/auth');
-            setUser(res.data.name)
-            //console.log(res);
+            setUser(res.data)
+            console.log(res.data);
             //return true;
             return;
         }
@@ -65,6 +72,23 @@ const MyCred = () => {
     }
     
     //loggedIn();
+    const getUser = async () =>{
+      try{
+        axios.defaults.headers.common['x-auth-token'] = localStorage.token;
+        const res = await axios.get('/auth');
+        console.log(res);
+        //setCredCoins(res.data.credCoins);
+       // setUnclaimed(res.data.unclaimedRewards);
+        //setRewards(res.data.rewards);
+        setUser(res.data)
+        return;
+    }
+    catch(err){
+        console.log(err);
+        //setAuthenticated(false);
+        return;
+    }
+    }
     
   const getCards = async () =>{
     try{
@@ -99,7 +123,9 @@ const MyCred = () => {
   useEffect(()=>{
       loggedIn();
       getCards();
-  },[data])
+      getUser();
+      console.log(user);
+  },[data.length,user.credCoins,user.coupons.length,user.unclaimedRewards.length,user.rewards.length])
   
   
 
@@ -127,10 +153,10 @@ const MyCred = () => {
             </NavItem>
             
             <NavItem>
-              <Rewards/>
+              <Rewards  user={user} getUser={getUser}/>
             </NavItem>
             <NavItem>
-              <Coupons />
+              <Coupons user={user} getUser={getUser}/>
             </NavItem>
             <NavItem>
               <Button  
@@ -146,14 +172,14 @@ const MyCred = () => {
       </Navbar>
       
 
-      <Header user={user} />
+      <Header user={user.name} />
 
       <div className="outline" style={{minHeight:'90vh'}}>
         
         
           
         {
-          data.length > 0 ? <ViewCards cards={data} payBill={payBill}/> : <div style={{display:'flex',justifyContent:'center',color:'#e8ba13'}}><h1>No Card to show! Please add a card!</h1></div>
+          data.length > 0 ? <ViewCards cards={data} payBill={payBill} user={user} getUser={getUser}/> : <div style={{display:'flex',justifyContent:'center',color:'#e8ba13'}}><h1>No Card to show! Please add a card!</h1></div>
         }
 
          

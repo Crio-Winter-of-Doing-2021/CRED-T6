@@ -10,15 +10,15 @@ import { Container, Row, Col } from 'reactstrap';
 
  
 
-const Rewards = (props) =>
+const Rewards = ({user,getUser}) =>
  {
   const [loading, setLoading] = useState(true);
   //const cardNo = props.cardNo;
   //const [user,setUser] = useState({});
   
   const [credCoins,setCredCoins] = useState(0);
-  const [rewards,setRewards] = useState([]);
-  const [unclaimed,setUnclaimed] = useState([]);
+  const [rewards,setRewards] = useState(user.rewards);
+  const [unclaimed,setUnclaimed] = useState([-1,23]);
  
   const [modal, setModal] = useState(false);
   const [value,setValue] = useState('?');
@@ -69,30 +69,17 @@ const Rewards = (props) =>
       
     }
   };
-  const getUser = async () =>{
-    try{
-      axios.defaults.headers.common['x-auth-token'] = localStorage.token;
-      const res = await axios.get('/auth');
-      console.log(res);
-      setCredCoins(res.data.credCoins);
-      setUnclaimed(res.data.unclaimedRewards);
-      setRewards(res.data.rewards);
 
-      return;
-  }
-  catch(err){
-      console.log(err);
-      //setAuthenticated(false);
-      return;
-  }
-  }
  
  
   useEffect(()=>{
    getUser();
-   //console.log(rewards);
+ 
+   setUnclaimed(user.unclaimedRewards);
+   setCredCoins(user.credCoins);
+   setRewards(user.rewards);
    setLoading(false);
- },[credCoins])
+ },[user.credCoins,user.unclaimedRewards.length,user.rewards.length])
 
 
   return(
@@ -105,7 +92,7 @@ const Rewards = (props) =>
           <Row>
         
         {loading?<div><Spinner color="warning" /></div>:
-        unclaimed.map(()=>(<Col xs="6" sm="4"><div className="reward" 
+        unclaimed.map(()=>(<Col xs="12" sm="6" lg ="4"><div className="reward" 
         style={{height:'250px',
         width:'200px',marginBottom:'15px'}}><ScratchCard {...settings}>
           <div style={{paddingTop:'50px'}} >

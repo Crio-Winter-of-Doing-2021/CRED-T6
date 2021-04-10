@@ -4,7 +4,7 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import swal from 'sweetalert';
 const cc = require('coupon-code');
-const Coupons = () => {
+const Coupons = ({user,getUser}) => {
 
     const coupon = [
         {
@@ -50,27 +50,14 @@ const Coupons = () => {
     const [credCoins,setCredCoins] = useState(0);
     const [coupons,setCoupons] = useState([]);
 
-    const getUser = async () =>{
-        try{
-          axios.defaults.headers.common['x-auth-token'] = localStorage.token;
-          const res = await axios.get('/auth');
-          console.log(res);
-          setCredCoins(res.data.credCoins);
-          //setUnclaimed(res.data.unclaimedRewards);
-          setCoupons(res.data.coupons);
     
-          return;
-      }
-      catch(err){
-          console.log(err);
-          //setAuthenticated(false);
-          return;
-      }
-      }
     useEffect(()=>{
         getUser();
+        console.log(user);
+        setCoupons(user.coupons);
+        setCredCoins(user.credCoins);
         setLoading(false);
-      },[credCoins])
+      },[user.credCoins,user.coupons.length])
 
     const onClick = async (event) => {
         //const curr = Math.floor(Math.random() * 100 + 1);
