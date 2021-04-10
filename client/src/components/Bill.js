@@ -60,12 +60,12 @@ const Bill = (props) => {
           text: "Congratulations! You have earned a Scratch Card!!",
           icon: "success",
         });
-
-        setTimeout(() => window.location.reload(false),1000);
+        props.getTransactions();
+        //setTimeout(() => window.location.reload(false),1000);
 
     }
     catch(err){
-        console.error(err.response.data);
+        console.error(err);
     }
       
   }

@@ -88,7 +88,8 @@ const MyCred = () => {
       icon: "success"
   });
     setShowAddCard(!showAddCard)
-    setTimeout(() => window.location.reload(false) ,1000);
+    getCards();
+    //setTimeout(() => window.location.reload(false) ,1000);
   }
 
   const payBill = (event) => {
@@ -98,7 +99,7 @@ const MyCred = () => {
   useEffect(()=>{
       loggedIn();
       getCards();
-  },[])
+  },[data])
   
   
 

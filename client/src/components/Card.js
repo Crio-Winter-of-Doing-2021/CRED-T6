@@ -73,7 +73,7 @@ const Card = ({ card, payBill }) => {
                         <Statements text={"View Statement"} transactions={transactions} amount={amount}/> 
                     </Col>
                     <Col>
-                        {amount?<Bill text={"Pay Bill"} amount={amount} payBill={payBill} card={card.cardNumber}/>:<Button disabled>Pay Bill</Button>}
+                        {amount?<Bill text={"Pay Bill"} amount={amount} payBill={payBill} card={card.cardNumber} getTransactions={getTransactions}/>:<Button disabled>Pay Bill</Button>}
                     </Col>
                     <Col>
                         {transactions.length?<SmartStatements text={"Smart Statement"} transactions={transactions}/>:<Button disabled>Smart Statement</Button>}

@@ -11,7 +11,7 @@ const Coupons = () => {
             id: 1,
             company: "Flipkart",
             offer: "Get 20% off exclusive on Jeans",
-            coins: 300
+            coins: 2
         },
         {
             id: 2,
@@ -70,7 +70,7 @@ const Coupons = () => {
     useEffect(()=>{
         getUser();
         setLoading(false);
-      },[])
+      },[credCoins])
 
     const onClick = async (event) => {
         //const curr = Math.floor(Math.random() * 100 + 1);
@@ -93,13 +93,15 @@ const Coupons = () => {
             //localStorage.setItem('token', res.data.token);
             console.log(res.data);
             //setAuthenticated(true);
+            getUser();
             setTimeout(() => swal({
-              title: "Coupon Claimed!",
+              title: `Coupon Code: ${code}`,
+              text: `${coupon[couponNo].offer} at ${coupon[couponNo].company}`,
               icon: "success",
             }),300);
             
     
-            setTimeout(() => window.location.reload(false),1000);
+            //setTimeout(() => window.location.reload(false),1000);
     
         }
         catch(err){
@@ -116,25 +118,7 @@ const Coupons = () => {
                 <ModalHeader toggle={toggle}><h2>Cred Coins: {credCoins} </h2></ModalHeader>
                 <ModalBody>
                     <Container>
-                    {coupons.length?<h3>My Coupons:</h3>:<div></div>}
-                    <Row>
-                            {
-                                loading ?
-                                    <div> <Spinner color="warning" /> </div>
-                                :
-                                    coupons.map((e)=>(
-                                        <Col xs="12" sm="6" lg="4">
-                                            <div className="reward" style={{height:'300px', width:'210px',marginBottom:'15px', paddingTop:'40px', alignContent:'center'}}>
-                                                <h1 style={{textAlign: 'center'}}> {coupon[e.couponNo].company} </h1>
-                                                <h5 style={{textAlign: 'center'}}> {coupon[e.couponNo].offer} </h5>
-                                                <br/>
-                                                <h1 style={{textAlign: 'center'}}> {e.code}</h1>
-                                                
-                                                </div>
-                                        </Col>
-                                    ))
-                            }
-                        </Row>
+                    
                         <h3>Offers Available:</h3>
                         <Row>
                             {
@@ -151,6 +135,25 @@ const Coupons = () => {
                                                 
                                                 <center>{credCoins>=e.coins?<Button onClick={onClick} value={e.id}> Claim Offer</Button>:<Button onClick={onClick} value={e.id} disabled> Claim Offer</Button>}</center>
                                             </div>
+                                        </Col>
+                                    ))
+                            }
+                        </Row>
+                        {coupons.length?<h3>My Coupons:</h3>:<div></div>}
+                    <Row>
+                            {
+                                loading ?
+                                    <div> <Spinner color="warning" /> </div>
+                                :
+                                    coupons.map((e)=>(
+                                        <Col xs="12" sm="6" lg="4">
+                                            <div className="reward" style={{height:'300px', width:'210px',marginBottom:'15px', paddingTop:'40px', alignContent:'center'}}>
+                                                <h1 style={{textAlign: 'center'}}> {coupon[e.couponNo].company} </h1>
+                                                <h5 style={{textAlign: 'center'}}> {coupon[e.couponNo].offer} </h5>
+                                                <br/>
+                                                <h1 style={{textAlign: 'center'}}> {e.code}</h1>
+                                                
+                                                </div>
                                         </Col>
                                     ))
                             }

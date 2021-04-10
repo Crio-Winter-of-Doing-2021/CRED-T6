@@ -45,14 +45,23 @@ const Rewards = (props) =>
         //localStorage.setItem('token', res.data.token);
         console.log(res.data);
         //setAuthenticated(true);
-        setTimeout(() => swal({
-          title: "Reward Claimed!",
-          icon: "success",
-        }),300);
+        setLoading(false);
         
-
-        setTimeout(() => window.location.reload(false),1000);
-
+        setTimeout(() =>{ 
+        //toggle();
+        swal({
+          title:`Congratulations You Won  ${curr} cred coins`,
+          text: "Reward Claimed!",
+          icon: "success",
+        })},1000);
+        
+        setTimeout(()=>{toggle();
+          getUser();
+          setValue('?');
+        },1000);
+        //setTimeout(() => window.location.reload(false),1000);
+        
+        
     }
     catch(err){
         console.error(err.response.data);
@@ -83,7 +92,7 @@ const Rewards = (props) =>
    getUser();
    //console.log(rewards);
    setLoading(false);
- },[])
+ },[credCoins])
 
 
   return(
