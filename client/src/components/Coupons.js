@@ -3,6 +3,7 @@ import { Container, Spinner, Col, Row } from 'reactstrap';
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import swal from 'sweetalert';
+import copy from 'copy-to-clipboard';
 const cc = require('coupon-code');
 const Coupons = ({user,getUser}) => {
 
@@ -138,8 +139,9 @@ const Coupons = ({user,getUser}) => {
                                                 <h1 style={{textAlign: 'center'}}> {coupon[e.couponNo].company} </h1>
                                                 <h5 style={{textAlign: 'center'}}> {coupon[e.couponNo].offer} </h5>
                                                 <br/>
-                                                <h1 style={{textAlign: 'center'}}> {e.code}</h1>
-                                                
+                                                <h3 style={{textAlign: 'center'}}> {e.code}</h3>
+                                                <center><Button onClick={()=>{copy(`${e.code}`)}}> Copy Code</Button></center>
+
                                                 </div>
                                         </Col>
                                     ))
