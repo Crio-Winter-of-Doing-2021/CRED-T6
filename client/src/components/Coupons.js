@@ -12,7 +12,7 @@ const Coupons = ({user,getUser}) => {
             id: 1,
             company: "Flipkart",
             offer: "Get 20% off exclusive on Jeans",
-            coins: 2
+            coins: 200
         },
         {
             id: 2,
@@ -108,12 +108,14 @@ const Coupons = ({user,getUser}) => {
                     <Container>
                     
                         <h3>Offers Available:</h3>
-                        <Row>
+                        <center>
+                            <Row>
                             {
                                 loading ?
                                     <div> <Spinner color="warning" /> </div>
                                 :
                                     coupon.map((e)=>(
+                                        
                                         <Col xs="12" sm="6" lg="4">
                                             <div className="reward" style={{height:'300px', width:'210px',marginBottom:'15px', paddingTop:'40px', alignContent:'center'}}>
                                                 <h1 style={{textAlign: 'center'}}> {e.company} </h1>
@@ -124,11 +126,16 @@ const Coupons = ({user,getUser}) => {
                                                 <center>{credCoins>=e.coins?<Button onClick={onClick} value={e.id}> Claim Offer</Button>:<Button onClick={onClick} value={e.id} disabled> Claim Offer</Button>}</center>
                                             </div>
                                         </Col>
+                                        
                                     ))
                             }
-                        </Row>
-                        {coupons.length?<h3>My Coupons:</h3>:<div></div>}
-                    <Row>
+                            </Row>
+                        </center>
+
+                    {coupons.length?<h3>My Coupons:</h3>:<div></div>}
+                    
+                        <center>
+                            <Row>
                             {
                                 loading ?
                                     <div> <Spinner color="warning" /> </div>
@@ -146,7 +153,8 @@ const Coupons = ({user,getUser}) => {
                                         </Col>
                                     ))
                             }
-                        </Row>
+                            </Row>
+                        </center>
                     </Container>
                 </ModalBody>
                 <ModalFooter>

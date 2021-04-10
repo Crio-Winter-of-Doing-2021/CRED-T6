@@ -89,6 +89,7 @@ const Rewards = ({user,getUser}) =>
         <ModalHeader toggle={toggle}><h2>Cred Coins: {credCoins}</h2></ModalHeader>
         <ModalBody>
         <Container>
+        
           <Row>
         
         {loading?<div><Spinner color="warning" /></div>:
@@ -107,6 +108,7 @@ const Rewards = ({user,getUser}) =>
         </Row>
         <h3>Claimed Rewards:</h3>
         
+        <center>
         <Row>
           
         {loading?<div><Spinner color="warning" /></div>:
@@ -121,7 +123,7 @@ const Rewards = ({user,getUser}) =>
              </div></Col>))
         }
         </Row>
-     
+        </center>
         </Container>
         </ModalBody>
         <ModalFooter>

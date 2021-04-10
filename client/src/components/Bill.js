@@ -59,7 +59,7 @@ const Bill = (props) => {
           title: "Bill Paid!",
           text: "Congratulations! You have earned a Scratch Card!!",
           icon: "success",
-        });
+        }).then(() => toggle());
         props.getTransactions();
         props.getUser();
         setAmount('');
