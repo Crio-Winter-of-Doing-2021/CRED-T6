@@ -26,6 +26,13 @@ const Bill = (props) => {
   const onSubmit = async (event) => {
 
       event.preventDefault();
+      if(amount <=0) {
+        swal({
+          text: 'Entered valid amount',
+          icon: "warning"
+        });
+        return;
+      }
       if(amount > props.amount) {
         swal({
           text: 'Entered amount is more than net amount',
@@ -105,10 +112,9 @@ const Bill = (props) => {
               <Form onSubmit={onSubmit}>
 
                   <FormGroup>
-                      <Label>Amount</Label>
                       <Input type="number" placeholder="Add Amount"  value={amount} onChange={(event) => setAmount(event.target.value)} required/>
                       <FormText color="muted">
-                          Enter the bill amount which want to pay
+                          Enter the bill amount which you want to pay
                       </FormText>
                   </FormGroup>
 

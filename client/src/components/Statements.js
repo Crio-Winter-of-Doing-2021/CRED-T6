@@ -79,13 +79,13 @@ const Statements = (props) =>{
         <Col>
         <FormGroup>
           <Input type="select" value={month} onChange={monthChange}>
-            <option value="0">Month</option>
+            <option value="0">MM</option>
             <option value="1">Jan</option>
             <option value="2">Feb</option>
             <option value="3">Mar</option>
-            <option value="4">April</option>
+            <option value="4">Apr</option>
             <option value="5">May</option>
-            <option value="6">June</option>
+            <option value="6">Jun</option>
             <option value="7">Jul</option>
             <option value="8">Aug</option>
             <option value="9">Sep</option>
@@ -98,7 +98,7 @@ const Statements = (props) =>{
         <Col>
         <FormGroup>
           <Input type="select" value={year} onChange={yearChange}>
-            <option value="0">Year</option>
+            <option value="0">YY</option>
             <option value="17">2017</option>
             <option value="18">2018</option>
             <option value="19">2019</option>
