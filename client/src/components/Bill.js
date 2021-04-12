@@ -103,11 +103,8 @@ const Bill = (props) => {
         <ModalHeader toggle={toggle}>Pay Bill</ModalHeader>
         <ModalBody>
             <strong>Net Amount: ₹ {props.amount}</strong>
-
-            {
-              props.amount>0 
-              
-                &&
+            <br />
+            <br/>
 
               <Form onSubmit={onSubmit}>
 
@@ -120,7 +117,7 @@ const Bill = (props) => {
 
                   <Button>Pay</Button>
               </Form>
-            }
+            
         </ModalBody>
         <ModalFooter>
           <Button color="secondary" onClick={toggle}>Cancel</Button>
