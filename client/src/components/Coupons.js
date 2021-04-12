@@ -13,7 +13,7 @@ const Coupons = ({user,getUser}) => {
             id: 1,
             company: "Flipkart",
             offer: "Get 20% off exclusive on Jeans",
-            coins: 2
+            coins: 300
         },
         {
             id: 2,
