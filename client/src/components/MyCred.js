@@ -136,6 +136,7 @@ unclaimedRewards: [],
 
    return (
     <div className="container-fluid" >
+      <div style={{height:'90px'}}>
       <Navbar color="warning" light expand="md">
       <NavbarBrand style={{display:'flex'}}><img src={cred} className="logo"/><h1 style={{fontFamily: "'Monoton', cursive"}}>CRED</h1></NavbarBrand>
         <NavbarToggler onClick={toggle} />
@@ -170,6 +171,7 @@ unclaimedRewards: [],
           </Nav>
           </Collapse>
       </Navbar>
+      </div>
       
 
       <Header user={user.name} />
