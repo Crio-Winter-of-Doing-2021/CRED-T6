@@ -82,7 +82,9 @@ const Bill = (props) => {
             });
         }
         } else {
-          swal("Payment was cancelled!");
+          swal({
+            title: "Payment was cancelled!"
+          }).then(() => toggle());
         }
       });
   }
