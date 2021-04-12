@@ -95,7 +95,7 @@ const Bill = (props) => {
       <Modal isOpen={modal} toggle={toggle} fullscreen="lg" size="md">
         <ModalHeader toggle={toggle}>Pay Bill</ModalHeader>
         <ModalBody>
-            <strong>Net Amount: {props.amount}</strong>
+            <strong>Net Amount: ₹ {props.amount}</strong>
 
             {
               props.amount>0 
