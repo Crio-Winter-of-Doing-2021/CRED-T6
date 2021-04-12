@@ -22,7 +22,7 @@ const Example = () => {
         <NavbarBrand style={{display:'flex'}}><img src={cred} className="logo"/><h1 style={{fontFamily: "'Monoton', cursive"}}>CRED</h1></NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
-          <Nav className="mr-left" navbar style={{marginLeft:'50vw'}}>
+          <Nav className="mr-left ml-auto" >
             <NavItem>
               <Login/>
             </NavItem>
