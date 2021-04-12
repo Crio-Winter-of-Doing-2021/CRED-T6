@@ -60,7 +60,7 @@ unclaimedRewards: [],
         try{
             const res = await axios.get('/auth');
             setUser(res.data)
-            console.log(res.data);
+            //console.log(res.data);
             //return true;
             return;
         }
@@ -76,7 +76,7 @@ unclaimedRewards: [],
       try{
         axios.defaults.headers.common['x-auth-token'] = localStorage.token;
         const res = await axios.get('/auth');
-        console.log(res);
+        //console.log(res);
         //setCredCoins(res.data.credCoins);
        // setUnclaimed(res.data.unclaimedRewards);
         //setRewards(res.data.rewards);
@@ -110,7 +110,7 @@ unclaimedRewards: [],
     swal({
       title: "Card Added!",
       icon: "success"
-  });
+  }).then(() => toggle2());
     setShowAddCard(!showAddCard)
     getCards();
     //setTimeout(() => window.location.reload(false) ,1000);

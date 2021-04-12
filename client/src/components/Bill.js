@@ -37,39 +37,54 @@ const Bill = (props) => {
       const timeElapsed = Date.now();
       const today = new Date(timeElapsed);
       const payment = {card:props.card, amount:amount*(-1),vendor:"Self",type:"Bill payment",category:"Credit",date:formatDate(today,'dd/mm/yy')}
-      console.log(payment);
+      //console.log(payment);
       //return;
 
-    try{
-        const config = {
-            headers:{
-                'Content-Type': 'application/json'
-            }
-        };
-
-        const body = JSON.stringify(payment);
-
-        const res = await axios.post('/transactions/pay',body, config);
-        //localStorage.setItem('token', res.data.token);
-        //console.log(res.data);
-        //setAuthenticated(true);
-         const res2 = await axios.put('/rewards');
-         console.log(res2);
-        swal({
-          title: "Bill Paid!",
-          text: "Congratulations! You have earned a Scratch Card!!",
-          icon: "success",
-        }).then(() => toggle());
-        props.getTransactions();
-        props.getUser();
-        setAmount('');
-        //setTimeout(() => window.location.reload(false),1000);
-
-    }
-    catch(err){
-        console.error(err);
-    }
-      
+      swal({
+        title: "Are you sure?",
+        text: "Continue to Payment",
+        icon: "warning",
+        buttons: true,
+      })
+      .then(async (willPay) => {
+        if (willPay) {
+          try{
+            const config = {
+                headers:{
+                    'Content-Type': 'application/json'
+                }
+            };
+    
+            const body = JSON.stringify(payment);
+    
+            const res = await axios.post('/transactions/pay',body, config);
+            //localStorage.setItem('token', res.data.token);
+            //console.log(res.data);
+            //setAuthenticated(true);
+             const res2 = await axios.put('/rewards');
+             console.log(res2);
+            swal({
+              title: "Bill Paid!",
+              text: "Congratulations! You have earned a Scratch Card!!",
+              icon: "success",
+            }).then(() => toggle());
+            props.getTransactions();
+            props.getUser();
+            setAmount('');
+            //setTimeout(() => window.location.reload(false),1000);
+    
+        }
+        catch(err){
+            console.error(err);
+            swal({
+              text: "Payment was unsuccessful",
+              icon: "error"
+            });
+        }
+        } else {
+          swal("Payment was cancelled!");
+        }
+      });
   }
 
   return (

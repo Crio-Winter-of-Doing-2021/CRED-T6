@@ -13,8 +13,9 @@ const AddCard = ({ onAdd }) => {
     const [name, setName] = useState('');
     const [cvc, setCvc] = useState('');
     const [focus, setFocus] = useState('');
-    const [regExp] = useState(/^[0-9/]+$/);
+    const [regDate] = useState(/^[0-9/]+$/);
     const [regName] = useState(/^[a-zA-Z ]+$/);
+    const [regNumber] = useState(/^[0-9]+$/);
 
     const onSubmit = async (event) => {
         event.preventDefault();
@@ -26,6 +27,18 @@ const AddCard = ({ onAdd }) => {
                 icon:"warning"
             });
             return 
+        }
+
+        let date = expiryDate.slice(0,2);
+        date = parseInt(date);
+
+        if(date > 12) {
+            swal({
+                text: "Invalid ExpiryDate",
+                icon: "error",
+                dangerMode: true
+            });
+            return ;
         }
 
         const newCard = {
@@ -46,7 +59,7 @@ const AddCard = ({ onAdd }) => {
 
             const res = await axios.post('/cards',body, config);
             //.setItem('token', res.data.token);
-            console.log(res.data);
+            //console.log(res.data);
             //setAuthenticated(true);
             onAdd({cardNo, expiryDate, name})
 
@@ -55,11 +68,9 @@ const AddCard = ({ onAdd }) => {
             setName('');
             setCvc('');
             setFocus('');
-
-            
         }
         catch(err){
-            console.error(err.response.data);
+            //console.error(err.response.data);
             swal({
                 text: `${err.response.data.errors[0].msg}`,
                 icon: "error"
@@ -73,7 +84,10 @@ const AddCard = ({ onAdd }) => {
 
         let number = event.target.value;
 
-        if(number !== '' && !Number(number)) {
+        if(number === '' || regNumber.test(number)) {
+            setCardNo(number);
+        }
+        else {
             swal({
                 text: "Enter valid Card Number",
                 icon: "warning",
@@ -88,7 +102,7 @@ const AddCard = ({ onAdd }) => {
         
         let date = event.target.value;
 
-        if (date === '' || regExp.test(date)) {
+        if (date === '' || regDate.test(date)) {
             setExpiryDate(date);
         }
         else {
@@ -105,7 +119,10 @@ const AddCard = ({ onAdd }) => {
     const checkCvc = (event) => {
         let number = event.target.value;
 
-        if(number !== '' && !Number(number)) {
+        if(number === '' || regNumber.test(number)) {
+            setCvc(number);
+        }
+        else {
             swal({
                 text: "Enter valid CVC",
                 dangerMode: true,

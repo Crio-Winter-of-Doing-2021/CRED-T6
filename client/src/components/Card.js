@@ -39,7 +39,7 @@ const Card = ({ card, payBill ,user, getUser}) => {
     useEffect(()=>{
         //();
         getTransactions();
-        console.log(amount);
+        //console.log(amount);
         //getAmount();
     },[])  
       

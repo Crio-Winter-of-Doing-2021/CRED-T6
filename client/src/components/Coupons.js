@@ -5,6 +5,7 @@ import axios from 'axios';
 import swal from 'sweetalert';
 import copy from 'copy-to-clipboard';
 const cc = require('coupon-code');
+
 const Coupons = ({user,getUser}) => {
 
     const coupon = [
@@ -12,7 +13,7 @@ const Coupons = ({user,getUser}) => {
             id: 1,
             company: "Flipkart",
             offer: "Get 20% off exclusive on Jeans",
-            coins: 200
+            coins: 2
         },
         {
             id: 2,
@@ -63,39 +64,55 @@ const Coupons = ({user,getUser}) => {
     const onClick = async (event) => {
         //const curr = Math.floor(Math.random() * 100 + 1);
         //setValue(parseInt(curr));
-        console.log(event.target.value);
-        try{
-            const config = {
-                headers:{
-                    'Content-Type': 'application/json'
-                }
-            };
+        //console.log(event.target.value);
 
-            const amount = coupon[event.target.value-1].coins;
-            const couponNo = event.target.value-1;
-            const code = cc.generate();
+        swal({
+            title: "Are you sure?",
+            text: "Once confirmed, coins will be deducted",
+            icon: "warning",
+            buttons: true,
+          })
+          .then( async (willConfirm) => {
+            if (willConfirm) {
 
-            const body = JSON.stringify({amount,couponNo,code});
-    
-            const res = await axios.put('/coupons',body, config);
-            //localStorage.setItem('token', res.data.token);
-            console.log(res.data);
-            //setAuthenticated(true);
-            getUser();
-            setTimeout(() => swal({
-              title: `Coupon Code: ${code}`,
-              text: `${coupon[couponNo].offer} at ${coupon[couponNo].company}`,
-              icon: "success",
-            }),300);
-            
-    
-            //setTimeout(() => window.location.reload(false),1000);
-    
-        }
-        catch(err){
-            console.error(err.response.data);
-        }
+                try{
+                    const config = {
+                        headers:{
+                            'Content-Type': 'application/json'
+                        }
+                    };
         
+                    const amount = coupon[event.target.value-1].coins;
+                    const couponNo = event.target.value-1;
+                    const code = cc.generate();
+        
+                    const body = JSON.stringify({amount,couponNo,code});
+            
+                    const res = await axios.put('/coupons',body, config);
+                    //localStorage.setItem('token', res.data.token);
+                    //console.log(res.data);
+                    //setAuthenticated(true);
+                    getUser();
+                    setTimeout(() => swal({
+                      title: `Coupon Code: ${code}`,
+                      text: `${coupon[couponNo].offer} at ${coupon[couponNo].company}`,
+                      icon: "success",
+                    }),300);
+                    
+                }
+                catch(err){
+                    console.error(err.response.data);
+                    swal({
+                        title: "Some error occured!",
+                        text: "Coupon could not be claimed",
+                        icon: "error"
+                    });
+                }
+            } 
+            else {
+              swal("Coins are not deducted");
+            }
+          }); 
       }
 
     return (
