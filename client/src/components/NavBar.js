@@ -17,7 +17,7 @@ const Example = () => {
   const toggle = () => setIsOpen(!isOpen);
 
   return (
-    <div style={{height:'100px'}}>
+    <div>
       <Navbar color="warning" light expand="md">
         <NavbarBrand style={{display:'flex'}}><img src={cred} className="logo"/><h1 style={{fontFamily: "'Monoton', cursive"}}>CRED</h1></NavbarBrand>
         <NavbarToggler onClick={toggle} />
