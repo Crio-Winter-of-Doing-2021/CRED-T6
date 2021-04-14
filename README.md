@@ -30,3 +30,7 @@ Team ID: CRED-T6 | Team Members: Rishav Raj &amp; Shivam Kirti
 - Express
 - MongoDB
 
+## Demo Account
+
+ - user - `a@a.com`
+ - Pass - `123456`
