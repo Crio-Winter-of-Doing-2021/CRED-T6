@@ -31,11 +31,11 @@ Team ID: CRED-T6 | Team Members: Rishav Raj &amp; Shivam Kirti
 - Express
 - MongoDB
 
-<<<<<<< HEAD
 <br />
 
 ## Android Images
 
+<br />
 
 <img src=".\Android\Images\HomeScreen.jpeg" alt="Home Screen" width=50% height=50%>
 
@@ -49,14 +49,16 @@ Team ID: CRED-T6 | Team Members: Rishav Raj &amp; Shivam Kirti
 
 <br />
 
+## Demo Account
+
+ - user - `a@a.com`
+ - Pass - `123456`
+
+<br />
+
 ## Developers
 
 - [Rishav Raj](https://github.com/rishav139)
 - [Shivam Kirti](https://github.com/shivam0504)
 
-=======
-## Demo Account
 
- - user - `a@a.com`
- - Pass - `123456`
->>>>>>> d3f35a2b1d84640ea1413bcae0c20d18a13e5960
